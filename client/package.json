@@ -10,6 +10,7 @@
     "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --no-inline",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
+  "proxy": "http://localhost:5005",
   "author": "Rodion D",
   "license": "ISC",
   "dependencies": {

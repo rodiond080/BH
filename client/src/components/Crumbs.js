@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Crumbs = (props)=>{
 
-  console.log(props)
+  // console.log(props)
 
   return(
       <div className="product__main-heading-bg">

@@ -63,7 +63,7 @@ function FrontLayout (props){
   // width<900 ? console.log('width<900'):null;
   // console.log('width', width)
   // console.log('height', height)
-  console.log(props)
+  console.log(props.props)
 
     useEffect(()=>{
       const btn = $('.main__up-button');
@@ -97,9 +97,10 @@ function FrontLayout (props){
           toggleCakes={props.toggleCakes}
           toggleCapCakes={props.toggleCapCakes}
       />
-      {props.crumb
+      {props.props.crumb.length>1
         ? <Crumbs
-
+          title={props.props.title}
+          crumbs={props.props.crumb}
         /> : null}
       { props.children }
       <button className="main__up-button">Наверх</button>

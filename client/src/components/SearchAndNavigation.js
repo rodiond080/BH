@@ -25,7 +25,7 @@ export const SearchAndNavigation = (props)=>{
       <div className="header__heading">
         <div className="header__heading-box border">
           <div className="header__heading-logo">
-            <a href="/"><img src={logo} alt="" /></a>
+            <NavLink to="/"><img src={logo} alt="" /></NavLink>
           </div>
 
           <div className="header__heading-search">

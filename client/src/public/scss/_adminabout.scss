@@ -1,0 +1,18 @@
+.admin__about{
+  margin-left:250px;
+
+  &-heading{
+    padding: 20px 10px;
+    text-align: center;
+    color: $whiteColor;
+    font-weight: 500;
+    font-size: 20px;
+
+    border: 2px solid red;
+  }
+
+  &-content{
+    border: 2px solid red;
+  }
+
+}

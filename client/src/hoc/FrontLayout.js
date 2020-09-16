@@ -30,12 +30,12 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return {
-    openMenu:()=> dispatch(menuOpen()),
-    closeMenu:()=> dispatch(menuClose()),
-    toggleCakes:()=> dispatch(toggleCakes()),
-    toggleCapCakes:()=> dispatch(toggleCapCakes()),
+    openMenu: () => dispatch(menuOpen()),
+    closeMenu: () => dispatch(menuClose()),
+    toggleCakes: () => dispatch(toggleCakes()),
+    toggleCapCakes: () => dispatch(toggleCapCakes()),
 
   }
 }
@@ -49,6 +49,7 @@ function useWindowSize() {
     function updateSize() {
       setSize([window.innerWidth, window.innerHeight]);
     }
+
     window.addEventListener('resize', updateSize);
     updateSize();
     return () => window.removeEventListener('resize', updateSize);
@@ -57,21 +58,19 @@ function useWindowSize() {
 }
 
 
-function FrontLayout (props){
+function FrontLayout(props) {
 
   // const [width, height] = useWindowSize();
   // width<900 ? console.log('width<900'):null;
   // console.log('width', width)
   // console.log('height', height)
-  console.log(props.props)
-  console.log(222)
 
-    useEffect(()=>{
-      const btn = $('.main__up-button');
-    $(window).on('scroll', function(){
-      if($(this).scrollTop()>=50){
+  useEffect(() => {
+    const btn = $('.main__up-button');
+    $(window).on('scroll', function () {
+      if ($(this).scrollTop() >= 50) {
         btn.fadeIn();
-      }else {
+      } else {
         btn.fadeOut();
       }
     });
@@ -81,7 +80,7 @@ function FrontLayout (props){
 
       $('html').animate({scrollTop: 0}, 1000);
     })
-  },[]);
+  }, []);
 
 
   return (
@@ -90,22 +89,22 @@ function FrontLayout (props){
       {/*<button onClick={()=>props.openCake()}>sss</button>*/}
 
       <SearchAndNavigation
-          menuIsOpen={props.menuOpen}
-          openMenu={props.openMenu}
-          closeMenu={props.closeMenu}
-          cakesOpen={props.cakesOpen}
-          capCakesOpen={props.capCakesOpen}
-          toggleCakes={props.toggleCakes}
-          toggleCapCakes={props.toggleCapCakes}
+        menuIsOpen={props.menuOpen}
+        openMenu={props.openMenu}
+        closeMenu={props.closeMenu}
+        cakesOpen={props.cakesOpen}
+        capCakesOpen={props.capCakesOpen}
+        toggleCakes={props.toggleCakes}
+        toggleCapCakes={props.toggleCapCakes}
       />
-      {props.props.crumb.length>1
+      {props.props.crumb.length > 1
         ? <Crumbs
           title={props.props.title}
           crumbs={props.props.crumb}
         /> : null}
-      { props.children }
+      {props.children}
       <button className="main__up-button">Наверх</button>
-      <Footer />
+      <Footer/>
     </div>
   )
 }

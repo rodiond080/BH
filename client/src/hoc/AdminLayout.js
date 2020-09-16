@@ -1,4 +1,5 @@
 import React, {Component, useEffect} from 'react';
+
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import {menuClose, menuOpen, toggleCakes, toggleCapCakes} from "../actions/menuActions";
@@ -31,7 +32,10 @@ function AdminLayout(props){
   return(
     <div>
       <h2>Hat</h2>
+
       {props.children}
+
+
       <h3>Footer</h3>
     </div>
   )

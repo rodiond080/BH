@@ -1,4 +1,6 @@
 import React from 'react';
+import 'materialize-css';
+import 'materialize-css/dist/css/materialize.min.css';
 
 const AdminAbout = (props)=>{
 
@@ -6,7 +8,7 @@ const AdminAbout = (props)=>{
 
   return(
     <div>
-      Admen about
+        Admen
     </div>
 
   )

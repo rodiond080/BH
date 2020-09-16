@@ -96,7 +96,7 @@ export const SearchAndNavigation = (props)=>{
                            search:'?a=1&b=2',
                            hash:'wfm-hash'  //to scroll until this element: /print?a=1&b=2#wfm-hash
                          }}>Напечатать</NavLink></li>
-            <li><NavLink className="menu__list-link" to="/review">Отзывы</NavLink></li>
+            <li><NavLink className="menu__list-link" to="/admin">Отзывы</NavLink></li>
             <li><NavLink className="menu__list-link" to="/contact">Контакты</NavLink></li>
 
           </ul>

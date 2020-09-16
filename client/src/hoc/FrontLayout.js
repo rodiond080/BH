@@ -64,6 +64,7 @@ function FrontLayout (props){
   // console.log('width', width)
   // console.log('height', height)
   console.log(props.props)
+  console.log(222)
 
     useEffect(()=>{
       const btn = $('.main__up-button');

@@ -33,7 +33,7 @@ function AdminLayout(props) {
       <div className="admin__heading">
         {props.children}
       </div>
-      <aside className={menuCls.join(' ')}>
+      <aside className={menuCls.join(' ')} >
         <div className="admin__menu-wrapper">
           <div className="admin__menu-menu ">
             <div><h2>Admen menu</h2></div>

@@ -1,3 +1,6 @@
+body{
+  background-color: #fff;
+}
 
 .admin {
   //display: flex;
@@ -5,10 +8,8 @@
 
   &__menu {
     width: 250px;
-    //border: 2px solid seagreen;
     background-color: $adminDark;
     transition: .3s;
-
     height: 99vh;
     float: left;
     margin-right: -300px;
@@ -25,7 +26,6 @@
     }
 
     &-button {
-      //position: absolute;
 
       margin-top: 10px;
       margin-left: 10px;
@@ -38,7 +38,6 @@
       border-radius: 5px;
       z-index: 2;
       display: none;
-      //padding: 10px;
 
 
       &:hover {
@@ -50,7 +49,7 @@
       background-color: $brightGrayColor;
       width: 34px;
       height: 4px;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     h2 {
@@ -63,8 +62,11 @@
     }
 
     ul {
+
       li {
         border-bottom: 1px solid black;
+
+
         border-top: 1px solid gray;
 
         a {
@@ -92,6 +94,5 @@
 
 .admin__heading {
   float: right;
-  background-color: $adminBright;
   width: 100%;
 }

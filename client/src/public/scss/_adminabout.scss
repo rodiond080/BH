@@ -18,7 +18,7 @@
 
   &-content{
     //background-color: #b4b3b3;
-    border: 1px solid $grayColor;
+    border: 1px solid #adadad;
     margin: 0 5px;
     height: 200px;
     font-size: 20px;
@@ -51,6 +51,7 @@
       border: 1px solid #adadad;
       border-radius: 3px;
 
+
       &:hover{
         cursor: pointer;
         background-color: $brightGrayColor;
@@ -78,6 +79,7 @@
     transition: .3s;
     
     &:hover{
+      border: 1px solid #adadad;;
       background-color: #fff;
       color: #444444;
     }

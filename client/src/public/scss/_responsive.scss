@@ -130,31 +130,30 @@
 @media (max-width: 900px) {
 
   .admin {
-
     &__menu {
-      //margin-right: -600px;
-      //margin: 0;
-
       margin-left: -250px;
-      //margin-left: 0;
-
-      &-wrapper {
-        //margin-left: -200px;
-      }
 
       &-button {
         display: flex;
         justify-content: center;
         align-items: center;
 
-        div {
-          //border:1px solid saddlebrown!important;
-          //flex-direction: column;
-        }
+      }
+
+      .admin__menu-stick:nth-child(1) {
+        margin-top: 2px;
+      }
+
+      &-wrapper{
+        z-index: 0!important;
       }
 
       &.active {
         margin-left: 0;
+
+        &-wrapper{
+
+        }
 
         div {
           //position: relative;
@@ -183,6 +182,13 @@
 
     &__about {
       margin-left: 0;
+
+
+      .ladmin__about-img {
+        //z-index: 0!important;
+      }
+
+
     }
 
   }
@@ -206,6 +212,8 @@
       padding: 10px;
 
       div {
+
+
         .btn-line {
           transition: .5s;
           background-color: #fff;
@@ -261,7 +269,6 @@
             width: 25px;
             height: 3px;
             transition: .5s;
-            //border: 1px solid salmon;
             margin-top: -8px;
             background-color: #fff;
             transform: rotate(-45deg);

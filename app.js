@@ -1,14 +1,18 @@
 const express = require('express');
 const config = require('config');
 const mongoose=require('mongoose');
+const path = require('path');
+const admAboutRoutes = require('./routes/admAbout');
 
 const app = express();
+
+app.use(express.static(path.join(__dirname, 'public')));
+// app.use(bodyParser.json());
 app.use(express.json({extended:true}));
 app.use(express.urlencoded({extended:true}));
-// app.use('/api', require('./routes/admin.routes'));
-// app.post('/api', (req,res)=>{
-//   console.log('works!')
-// });
+// app.use('/', homeRoutes);
+// app.use('/about', aboutRoutes);
+app.use('/api/adm/about', admAboutRoutes);
 
 const PORT = config.get('port') || 5000 ;
 

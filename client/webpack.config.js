@@ -99,7 +99,7 @@ module.exports = {
     port:5005,
     historyApiFallback: true, //switch on routes
     proxy:{
-      '/api':'http://localhost:5000'
+      '/api':'http://localhost:5001'
     }
   },
   devtool: isDev ? 'source-map' : '',

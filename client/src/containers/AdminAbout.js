@@ -16,6 +16,17 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
+function readFileAsync(file) {
+  return new Promise((res, rej) => {
+    let reader = new FileReader();
+    reader.onload = () => {
+      res(reader.result);
+    }
+    reader.onerror = rej;
+    reader.readAsDataURL(file);
+  })
+}
+
 
 const AdminAbout = (props) => {
   const textArea = useRef(null);
@@ -23,11 +34,18 @@ const AdminAbout = (props) => {
   const arrayOfImgFiles = [];
   // console.log('props:', props);
 
-  const imagesHandler = async (e) => {
+  const imagesInputHandler = async (e) => {
     e.preventDefault();
-    // Array.from(imgInput.current.files).forEach(file => {
-    //   arrayOfImgFiles.push(file);
-    // });
+    Array.from(imgInput.current.files).forEach(async file => {
+      arrayOfImgFiles.push(file);
+      const img = document.createElement('img');
+      img.src = await readFileAsync(file);
+      textArea.current.appendChild(img);
+    });
+
+
+    // const img = document.createElement('img')
+
     // console.log(arrayOfImgFiles);
 
     // console.log(imgInput.current.files)
@@ -44,7 +62,7 @@ const AdminAbout = (props) => {
     // textArea.current.innerHTML=props.admAboutContent;
     // console.log('props:', props);
     // textArea.current.innerHTML = props.admAboutContent
-    // imgInput.current.addEventListener('change', imagesHandler);
+    imgInput.current.addEventListener('change', imagesInputHandler);
     // console.log(imgInput.current)
 
     // console.log(textArea.current.innerText);
@@ -54,7 +72,7 @@ const AdminAbout = (props) => {
     <div className="admin__about">
       <div className="admin__about-heading">Admen heading</div>
       <div className="admin__about-buttons">
-        <input className="admin__about-img" ref={imgInput} multiple type="file" id='imgbutton'/>
+        <input className="admin__about-img" ref={imgInput} multiple type="file" id='imgbutton' accept="image/*" />
         <label className="ladmin__about-img" htmlFor="imgbutton">
           <i className="far fa-file-image"></i>
         </label>

@@ -1,56 +1,71 @@
-import {ADM_ABOUT_SUCCESS} from "../_constants/admAboutConstants";
+import {ADM_SET_ABOUT_SUCCESS, ADM_GET_ABOUT_SUCCESS} from "../_constants/admAboutConstants";
 
-function x(res) {
-  return {
-    type: ADM_ABOUT_SUCCESS,
-    content:res
+
+export function setAdminAboutContent(content) {
+  return (dispatch) => {
+
+    fetch('/api/adm/about/setaboutcontent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({content: content})
+    })
+      .then(res => res.json())
+      .then((res) => {
+        dispatch(success(res));
+      })
+
+    function success(res) {
+      return {
+        type: ADM_SET_ABOUT_SUCCESS,
+        content: res
+      }
+    }
   }
 }
 
 export function getAdminAboutContent() {
   return (dispatch) => {
 
-    fetch('/api/adm/about/getabout', {
-      method:'POST',
-      headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({content:'Hello'})
+    fetch('/api/adm/about/getaboutcontent', {
+      method: 'POST'
     })
-      .then(res=>res.json())
-      .then((res)=>{
-        dispatch(x(res));
+      .then(res => res.json())
+      .then((res) => {
+        dispatch(success(res));
       })
 
-    // fetch('/adm/about/getabout', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json;charset=utf-8'
-    //   },
-    //   body: JSON.stringify('sss')
-    // })
-    //   .then(res => res.json())
-    //   .then((res) => {
-    //     dispatch(x(res))
-    //   })
-
-    // setTimeout(()=>{
-    //   dispatch(x())
-    // }, 2000);
+    function success(res) {
+      return {
+        type: ADM_GET_ABOUT_SUCCESS,
+        content: res
+      }
+    }
   }
 }
 
 
-// import {ADM_ABOUT_SUCCESS} from "../_constants/admAboutConstants";
+// export function getAdminAboutContent(content) {
+//   return (dispatch) => {
 //
-// function x(){
-//   return {type:ADM_ABOUT_SUCCESS}
-// }
+//     fetch('/api/adm/about/getaboutcontent', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json;charset=utf-8'
+//       },
+//       body: JSON.stringify({content: content})
+//     })
+//       .then(res => res.json())
+//       .then((res) => {
+//         dispatch(success(res));
+//       })
 //
-// export function getAdminAboutContent() {
-//   return (dispatch)=>{
-//     setTimeout(()=>{
-//       dispatch(x())
-//     }, 2000);
+//     function success(res) {
+//       return {
+//         type: ADM_GET_ABOUT_SUCCESS,
+//         content: res
+//       }
+//     }
 //   }
 // }

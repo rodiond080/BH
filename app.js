@@ -2,7 +2,7 @@ const express = require('express');
 const config = require('config');
 const mongoose=require('mongoose');
 const path = require('path');
-const admAboutRoutes = require('./routes/admAbout');
+const admAboutRoutes = require('./routes/admAboutRouter');
 
 const app = express();
 

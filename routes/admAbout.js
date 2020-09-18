@@ -6,11 +6,11 @@ router.post('/getabout', async (req, res)=>{
   // await req.user.addToCart(course);
   // res.redirect('/card');
   try{
-    console.log(req.body)
-    let str = req.body.content + ' world!'
+    console.log(req.body);
+    let str = req.body.content + ' world!';
     res.status(200).json(str);
   }catch (e) {
-    console.log(e)
+    console.log(e);
   }
 
 });

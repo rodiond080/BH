@@ -26,20 +26,20 @@ const AdminAbout = (props) => {
       {/*<div contentEditable={"true"} className="admin__about-content"></div>*/}
 
 
-      <button onClick={()=> {
-       fetch('/api/adm/about/getabout', {
-         method:'POST',
-         headers: {
-           'Content-Type': 'application/json;charset=utf-8'
-         },
-         body: JSON.stringify({content:'Hello'})
-       })
-         .then(res=>res.json())
-         .then((res)=>{
-           console.log(res)})
+      {/*<button onClick={()=> {*/}
+      {/* fetch('/api/adm/about/getabout', {*/}
+      {/*   method:'POST',*/}
+      {/*   headers: {*/}
+      {/*     'Content-Type': 'application/json;charset=utf-8'*/}
+      {/*   },*/}
+      {/*   body: JSON.stringify({content:'Hello'})*/}
+      {/* })*/}
+      {/*   .then(res=>res.json())*/}
+      {/*   .then((res)=>{*/}
+      {/*     console.log(res)})*/}
 
-      }}>Click me</button>
-      {/*<button onClick={()=>props.getAdminAboutContent()}>Click me</button>*/}
+      {/*}}>Click me</button>*/}
+      <button onClick={()=>props.getAdminAboutContent()}>Click me</button>
 
       <div className="admin__about-buttons">
         <input className="admin__about-img" type="file" id='imgbutton'/>

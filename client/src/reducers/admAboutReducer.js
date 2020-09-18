@@ -8,7 +8,7 @@ export default function admAboutReducer(state = admAboutState, action) {
   switch (action.type) {
     case ADM_ABOUT_SUCCESS:
       return {
-        admAboutContent: "action.content"
+        admAboutContent: action.content
       }
   }
   return state

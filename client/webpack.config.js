@@ -96,10 +96,10 @@ module.exports = {
     }
   },
   devServer:{
-    port:5005,
+    port:5001,
     historyApiFallback: true, //switch on routes
     proxy:{
-      '/api':'http://localhost:5001'
+      '/api':'http://localhost:5000'
     }
   },
   devtool: isDev ? 'source-map' : '',

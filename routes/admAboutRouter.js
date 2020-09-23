@@ -38,6 +38,7 @@ router.post('/setaboutcontent',
 
 router.post('/getaboutcontent', async (req, res) => {
   try {
+    console.log(req)
     let str = 'This is a content about the cooker <img src="#" />';
     res.status(200).json(str);
   } catch (e) {

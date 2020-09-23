@@ -23,7 +23,10 @@ const AdminAbout = (props) => {
   const textArea = useRef(null);
 
   useEffect(() => {
-    props.filesToUpload.length === 0 ? props.getAdminAboutContent() : null
+    console.log(props)
+    // props.getAdminAboutContent();
+    // console.log(props)
+    // props.filesToUpload.length === 0 ? props.getAdminAboutContent() : null
   }, [textArea, props.admAboutContent]);
 
   return (
@@ -42,7 +45,7 @@ const AdminAbout = (props) => {
         <div ref={textArea} suppressContentEditableWarning={true} contentEditable={"true"}
              className="admin__about-content" dangerouslySetInnerHTML={{__html: props.admAboutContent}}>
         </div>}
-      {/*<button onClick={() => props.setAdminAboutContent(textArea.current.innerHTML)}>Save</button>*/}
+      <button onClick={() => props.getAdminAboutContent()}>Save</button>
     </div>
   )
 }

@@ -97,13 +97,17 @@ export function getAdminAboutContent() {
     dispatch(begin());
     try {
       fetch('/api/adm/about/getaboutcontent', {
-        method: 'POST'
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       })
         .then(res => {
-          if (!res.ok) throw Error(res.statusText);
-          res.json();
+          // if (!res.ok) throw Error(res.statusText);
+          return res.json();
         })
         .then((res) => {
+          console.log(res)
           dispatch(success(res));
         });
     } catch (e) {

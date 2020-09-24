@@ -50,6 +50,7 @@ const babelOptions = preset => {
     presets:[
       '@babel/preset-env', //universal main preset
       '@babel/preset-react'
+      // '@babel/register'
     ],
     plugins:[
       '@babel/plugin-proposal-class-properties',
@@ -99,7 +100,7 @@ module.exports = {
     port:5005,
     historyApiFallback: true, //switch on routes
     proxy:{
-      '/api':'http://localhost:5001'
+      '/api':'http://localhost:5000'
     }
   },
   devtool: isDev ? 'source-map' : '',

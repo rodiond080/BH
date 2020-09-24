@@ -5,13 +5,16 @@ import {connect} from "react-redux";
 
 function mapStateToProps(state) {
   return {
-    admAboutContent: state.admAboutReducer.admAboutContent
+    loading: state.admAboutReducer.loading,
+    admAboutContent: state.admAboutReducer.admAboutContent,
+    filesToUpload: state.admAboutReducer.filesToUpload,
+    error: state.admAboutReducer.error,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setAdminAboutContent: (content) => dispatch(setAdminAboutContent(content)),
+    setAdminAboutContent: (content, files) => dispatch(setAdminAboutContent(content, files)),
     getAdminAboutContent: () => dispatch(getAdminAboutContent()),
   }
 }
@@ -36,12 +39,17 @@ const AdminAbout = (props) => {
 
   const imagesInputHandler = async (e) => {
     e.preventDefault();
-    Array.from(imgInput.current.files).forEach(async file => {
-      arrayOfImgFiles.push(file);
-      const img = document.createElement('img');
-      img.src = await readFileAsync(file);
-      textArea.current.appendChild(img);
-    });
+    // console.log(e.target.files)
+
+    // const fd = new FileList()
+    // console.log(e.dataTransfer)
+
+    // Array.from(imgInput.current.files).forEach(async file => {
+    //   arrayOfImgFiles.push(file);
+    //   const img = document.createElement('img');
+    //   img.src = await readFileAsync(file);
+    //   textArea.current.appendChild(img);
+    // });
 
 
     // const img = document.createElement('img')
@@ -52,7 +60,6 @@ const AdminAbout = (props) => {
     // imgInput.current.files.map((file, idx)=>{
     //   arrayOfImgFiles.push(file);
     // });
-
   }
 
   useEffect(() => {
@@ -62,7 +69,7 @@ const AdminAbout = (props) => {
     // textArea.current.innerHTML=props.admAboutContent;
     // console.log('props:', props);
     // textArea.current.innerHTML = props.admAboutContent
-    imgInput.current.addEventListener('change', imagesInputHandler);
+    // imgInput.current.addEventListener('change', imagesInputHandler);
     // console.log(imgInput.current)
 
     // console.log(textArea.current.innerText);
@@ -72,7 +79,8 @@ const AdminAbout = (props) => {
     <div className="admin__about">
       <div className="admin__about-heading">Admen heading</div>
       <div className="admin__about-buttons">
-        <input className="admin__about-img" ref={imgInput} multiple type="file" id='imgbutton' accept="image/*" />
+        <input className="admin__about-img" onChange={(e)=>props.setAdminAboutContent(textArea.current.innerHTML, e.target.files)} multiple type="file" id='imgbutton'
+               accept="image/*"/>
         <label className="ladmin__about-img" htmlFor="imgbutton">
           <i className="far fa-file-image"></i>
         </label>

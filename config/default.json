@@ -1,5 +1,6 @@
 {
-  "port": 5001,
+  "port": 5000,
+  "socketPort": 5001,
   "jwtSecret": "rodion",
   "mongoUri":"mongodb://localhost/bh"
 }

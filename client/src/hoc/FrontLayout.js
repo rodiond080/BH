@@ -7,21 +7,6 @@ import {menuOpen, menuClose, toggleCakes, toggleCapCakes} from "../actions/menuA
 import {Crumbs} from "@/components/Crumbs";
 import {withRouter} from "react-router";
 
-
-// function mapStateToProps(state) {
-//   return {
-//     cakesOpen: state.subMenuReducer.cakesOpen,
-//     capCakesOpen: state.subMenuReducer.capCakesOpen
-//   }
-// }
-//
-// function mapDispatchToProps(dispatch){
-//   return {
-//     openCake:()=> dispatch({type:'CAKOPEN'}),
-//     openCapC:()=> dispatch({type:'CAPOPEN'})
-//   }
-// }
-
 function mapStateToProps(state) {
   return {
     menuOpen: state.menuReducer.menuOpen,
@@ -35,8 +20,7 @@ function mapDispatchToProps(dispatch) {
     openMenu: () => dispatch(menuOpen()),
     closeMenu: () => dispatch(menuClose()),
     toggleCakes: () => dispatch(toggleCakes()),
-    toggleCapCakes: () => dispatch(toggleCapCakes()),
-
+    toggleCapCakes: () => dispatch(toggleCapCakes())
   }
 }
 
@@ -60,11 +44,6 @@ function useWindowSize() {
 
 function FrontLayout(props) {
 
-  // const [width, height] = useWindowSize();
-  // width<900 ? console.log('width<900'):null;
-  // console.log('width', width)
-  // console.log('height', height)
-
   useEffect(() => {
     const btn = $('.main__up-button');
     $(window).on('scroll', function () {
@@ -85,8 +64,6 @@ function FrontLayout(props) {
 
   return (
     <div>
-      {/*<p>{props.cakesOpen.toString()}</p>*/}
-      {/*<button onClick={()=>props.openCake()}>sss</button>*/}
 
       <SearchAndNavigation
         menuIsOpen={props.menuOpen}

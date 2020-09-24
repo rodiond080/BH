@@ -76,7 +76,7 @@ const AdminAbout = (props) => {
   }, [textArea]);
 
   return (
-    <div className="admin__about">
+    <div id="xxx" className="admin__about">
       <div className="admin__about-heading">Admen heading</div>
       <div className="admin__about-buttons">
         <input className="admin__about-img" onChange={(e)=>props.setAdminAboutContent(textArea.current.innerHTML, e.target.files)} multiple type="file" id='imgbutton'

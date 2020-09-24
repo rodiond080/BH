@@ -13,23 +13,56 @@ export function setAdminAboutContent(content, files) {
       dispatch(init());
       var socket = io.connect('http://localhost:5001');
 
-      const file = files[0];
-      console.log(content)
-      const stream = ss.createStream();
-      ss(socket).emit('img-about-upload', stream, {
-        size: file.size, name: file.name
+      console.log(Array.from(files))
+      Array.from(files).forEach(file=>{
+        // const file = files[0];
+        const ind = document.createElement('p');
+        ind.innerHTML='0%'
+        document.getElementById('xxx').appendChild(ind)
+
+
+        const stream = ss.createStream();
+        ss(socket).emit('img-about-upload', stream, {
+          size: file.size, name: file.name
+        });
+        ss.createStream(file).pipe(stream);
+
+        var blobStream = ss.createBlobReadStream(file);
+        var size = 0;
+
+        blobStream.on('data', function (chunk) {
+          size += chunk.length;
+          ind.innerHTML=Math.floor(size / file.size * 100) + '%'
+          // console.log(Math.floor(size / file.size * 100) + '%');
+        });
+
+        blobStream.pipe(stream);
       });
-      ss.createStream(file).pipe(stream);
 
-      var blobStream = ss.createBlobReadStream(file);
-      var size = 0;
 
-      blobStream.on('data', function (chunk) {
-        size += chunk.length;
-        console.log(Math.floor(size / file.size * 100) + '%');
-      });
 
-      blobStream.pipe(stream);
+
+
+
+      // const file = files[0];
+      // const stream = ss.createStream();
+      // ss(socket).emit('img-about-upload', stream, {
+      //   size: file.size, name: file.name
+      // });
+      // ss.createStream(file).pipe(stream);
+      //
+      // var blobStream = ss.createBlobReadStream(file);
+      // var size = 0;
+      //
+      // blobStream.on('data', function (chunk) {
+      //   size += chunk.length;
+      //   console.log(Math.floor(size / file.size * 100) + '%');
+      // });
+      //
+      // blobStream.pipe(stream);
+
+
+
 
 
       //--------------------------------------or with axios

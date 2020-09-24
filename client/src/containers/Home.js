@@ -4,7 +4,7 @@ import 'slick-carousel';
 import pic1 from '@/public/images/header-slider/pic1.jpg'
 
 
-const Home = (props)=>{
+const Home = (props) => {
 
   const pic1 = 'pic1.jpg';
   const pic2 = 'pic2.jpg';
@@ -22,92 +22,91 @@ const Home = (props)=>{
   const arrBox = useRef(null);
   const dots = useRef(null);
 
-  const initSlider=()=>{
+  const initSlider = () => {
     $(slider["current"]).slick({
       slidesToShow: 1,
       slidesToScroll: 1,
-      infinite:true,
-      fade:true,
-      autoplay:true,
-      arrows:false,
+      infinite: true,
+      fade: true,
+      autoplay: true,
+      arrows: false,
       asNavFor: dots["current"],
     });
 
     $(dots["current"]).slick({
-      slidesToShow:3,
-      slidesToScroll:1,
+      slidesToShow: 3,
+      slidesToScroll: 1,
       asNavFor: slider["current"],
       focusOnSelect: true
     });
 
     $('.main__slider').slick({
-      slidesToShow:4,
-      slidesToScroll:1,
+      slidesToShow: 4,
+      slidesToScroll: 1,
       infinite: true,
       appendArrows: document.getElementsByClassName('main__arrow-box')[0],
       prevArrow: $('.left-arrow'),
       nextArrow: $('.right-arrow'),
-      responsive:[
+      responsive: [
         {
-          breakpoint:1220,
-          settings:{
-            slidesToShow:3,
-            infinite:true,
+          breakpoint: 1220,
+          settings: {
+            slidesToShow: 3,
+            infinite: true,
             // centerMode:true
           }
         },
         {
-          breakpoint:1040,
-          settings:{
-            slidesToShow:2,
-            infinite:true,
-            centerMode:true
+          breakpoint: 1040,
+          settings: {
+            slidesToShow: 2,
+            infinite: true,
+            centerMode: true
           }
         },
         {
-          breakpoint:940,
-          settings:{
-            slidesToShow:2,
-            infinite:true,
-            centerMode:true
+          breakpoint: 940,
+          settings: {
+            slidesToShow: 2,
+            infinite: true,
+            centerMode: true
           }
         },
         {
-          breakpoint:900,
-          settings:{
-            arrows:false,
-            slidesToShow:2,
-            infinite:true,
-            centerMode:true
+          breakpoint: 900,
+          settings: {
+            arrows: false,
+            slidesToShow: 2,
+            infinite: true,
+            centerMode: true
           }
         },
         {
-          breakpoint:650,
-          settings:{
-            arrows:false,
-            slidesToShow:1,
-            infinite:true,
-            centerMode:true
+          breakpoint: 650,
+          settings: {
+            arrows: false,
+            slidesToShow: 1,
+            infinite: true,
+            centerMode: true
           }
         },
       ]
     });
-
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     initSlider();
-  },[slider, dots]);
+  }, [slider, dots]);
 
-  return(
+  return (
     <div>
       <div className="header__main-slider-arrows">
         <div className="header__main-slider" ref={slider}>
           {/*<div className="header__main-slider-bg" style="background-image: url(public/images/logo.png)">*/}
           {/*<div className='header__main-slider-bg' style={{background:`url(${homePictures.pic1})`}} >*/}
-          <div className="header__main-slider-bg" style={{background:`url(public/images/header-slider/${pic1})`}}>
-          {/*<div className="header__main-slider-bg" style={{background:`url(/public/images/header-slider/pic1.jpg)`}}>*/}
-          {/*<img src={`public/images/header-slider/pic1.jpg`} alt="" />*/}
+          <div className="header__main-slider-bg" style={{background: `url(public/images/header-slider/${pic1})`}}>
+            {/*<div className="header__main-slider-bg" style={{background:`url(/public/images/header-slider/pic1.jpg)`}}>*/}
+            {/*<img src={`public/images/header-slider/pic1.jpg`} alt="" />*/}
             <div className="header__main-box">
               <div className="border">
                 <div className="header__main-subbox">
@@ -126,7 +125,7 @@ const Home = (props)=>{
               </div>
             </div>
           </div>
-          <div className="header__main-slider-bg" style={{background:`url(public/images/header-slider/${pic2})`}}>
+          <div className="header__main-slider-bg" style={{background: `url(public/images/header-slider/${pic2})`}}>
             <div className="header__main-box">
               <div className="border">
                 <div className="header__main-subbox">
@@ -145,7 +144,7 @@ const Home = (props)=>{
               </div>
             </div>
           </div>
-          <div className="header__main-slider-bg" style={{background:`url(public/images/header-slider/${pic3})`}}>
+          <div className="header__main-slider-bg" style={{background: `url(public/images/header-slider/${pic3})`}}>
             <div className="header__main-box">
               <div className="border">
                 <div className="header__main-subbox">
@@ -168,7 +167,7 @@ const Home = (props)=>{
         <div className="arrows-subbox">
           <div className="border">
             <div className='arrows-box' ref={arrBox}>
-              <div className='header__main-slider-dots' ref={dots} >
+              <div className='header__main-slider-dots' ref={dots}>
                 <div className="slider-dot">
                   <div className="dot"></div>
                 </div>
@@ -201,7 +200,8 @@ const Home = (props)=>{
                 <div className="main__slider">
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic1})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic1})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -214,7 +214,8 @@ const Home = (props)=>{
                   </div>
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic2})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic2})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -227,7 +228,8 @@ const Home = (props)=>{
                   </div>
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic3})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic3})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -240,7 +242,8 @@ const Home = (props)=>{
                   </div>
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic4})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic4})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -253,7 +256,8 @@ const Home = (props)=>{
                   </div>
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic5})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic5})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -266,7 +270,8 @@ const Home = (props)=>{
                   </div>
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic6})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic6})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -279,7 +284,8 @@ const Home = (props)=>{
                   </div>
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic7})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic7})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -292,7 +298,8 @@ const Home = (props)=>{
                   </div>
                   <div className="main__slider-item">
                     <div className="main__item">
-                      <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic8})`}}>
+                      <div className="main__item-pic"
+                           style={{background: `url(public/images/main-slider/${mainPic8})`}}>
                         <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                         </div>
                         <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -330,7 +337,7 @@ const Home = (props)=>{
 
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic8})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic8})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -345,7 +352,7 @@ const Home = (props)=>{
 
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic1})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic1})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -358,7 +365,7 @@ const Home = (props)=>{
               </div>
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic2})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic2})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -371,7 +378,7 @@ const Home = (props)=>{
               </div>
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic3})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic3})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -387,7 +394,7 @@ const Home = (props)=>{
 
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic4})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic4})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -402,7 +409,7 @@ const Home = (props)=>{
               </div>
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic5})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic5})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -415,7 +422,7 @@ const Home = (props)=>{
               </div>
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic6})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic6})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -428,7 +435,7 @@ const Home = (props)=>{
               </div>
               <div className="main__second-top-item">
                 <div className="main__item">
-                  <div className="main__item-pic" style={{background:`url(public/images/main-slider/${mainPic7})`}}>
+                  <div className="main__item-pic" style={{background: `url(public/images/main-slider/${mainPic7})`}}>
                     <div className="main__item-pic-cart"><i className="fas fa-shopping-cart"></i><span> Добавить в корзину</span>
                     </div>
                     <div className="main__item-pic-desc"><i className="fas fa-info-circle"></i></div>
@@ -454,7 +461,8 @@ const Home = (props)=>{
       </div>
       <div className="main__second-banner">
         <div className="border">
-          <div className="main__second-banner-wrapper" style={{background:`url(public/images/main-slider/${mainPic8})`}}>
+          <div className="main__second-banner-wrapper"
+               style={{background: `url(public/images/main-slider/${mainPic8})`}}>
             <div className="main__second-banner-wrapper-sub">
               <div className="main__second-banner-wrapper-mark">
                 <div>Новинка!</div>

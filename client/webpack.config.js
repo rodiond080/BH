@@ -10,32 +10,32 @@ const OptimizeCssAssetPlugin = require('optimize-css-assets-webpack-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
-const filename = (ext)=> isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
+const filename = (ext) => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
 
 const cssLoaders = extra => {
-  const loaders  = [{
+  const loaders = [{
     loader: MiniCssExtractPlugin.loader,
     options: {
       hmr: isDev,       //hot module replacement
-      reloadAll:true
+      reloadAll: true
     },
   }, 'css-loader']
 
-  if(extra){
+  if (extra) {
     loaders.push(extra)
   }
 
   return loaders;
 }
 
-const optimization = () =>{
+const optimization = () => {
   const config = {
     splitChunks: {
       chunks: 'all'
     }
   };
 
-  if(isProd){
+  if (isProd) {
     config.minimizer = [
       new OptimizeCssAssetPlugin(), //minify css
       new TerserPlugin()            //minify js
@@ -47,16 +47,16 @@ const optimization = () =>{
 
 const babelOptions = preset => {
   const opts = {
-    presets:[
+    presets: [
       '@babel/preset-env', //universal main preset
       '@babel/preset-react'
     ],
-    plugins:[
+    plugins: [
       '@babel/plugin-proposal-class-properties',
     ]
   }
 
-  if(preset){
+  if (preset) {
     opts.presets.push(preset);
   }
 
@@ -69,7 +69,7 @@ const jsLoaders = () => {
     options: babelOptions()
   }];
 
-  if(isDev){
+  if (isDev) {
     loaders.push('eslint-loader');
   }
 
@@ -78,21 +78,22 @@ const jsLoaders = () => {
 
 
 module.exports = {
-  context:path.resolve(__dirname, 'src'),
-  mode:'development',
-  entry:{
-    main:['@babel/polyfill' ,'./index.js'], //'@babel/polyfill' for working babel
+  context: path.resolve(__dirname, 'src'),
+  mode: 'development',
+  entry: {
+    main: ['@babel/polyfill', './index.js'], //'@babel/polyfill' for working babel
     // analytics: './analytics.ts'
   },
-  output:{
-    filename:filename('js'),
-    path:path.resolve(__dirname, 'dist')
+  output: {
+    filename: filename('js'),
+    path: path.resolve(__dirname, 'dist')
   },
   resolve: {
     extensions: ['.js', '.json', '.png'],//in order to write imports without dots.ext
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@public':path.resolve(__dirname, 'src', 'public'),
+      '@public': path.resolve(__dirname, 'src', 'public'),
+      '@server': path.resolve()
     }
   },
   devServer: {
@@ -103,7 +104,7 @@ module.exports = {
     }
   },
   devtool: isDev ? 'source-map' : '',
-  plugins:[
+  plugins: [
     new webpack.ProvidePlugin({
       // $: 'jquery',
       // jQuery: 'jquery',
@@ -111,10 +112,15 @@ module.exports = {
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({
-      patterns:[{
-        from: path.resolve(__dirname, 'src/public/images/header-slider/pic1.jpg'),
-        to: path.resolve(__dirname, 'dist/public/images/header-slider')
-      },
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'src/public/images/logo.png'),
+          to: path.resolve(__dirname, 'dist/public/images')
+        },
+        {
+          from: path.resolve(__dirname, 'src/public/images/header-slider/pic1.jpg'),
+          to: path.resolve(__dirname, 'dist/public/images/header-slider')
+        },
         {
           from: path.resolve(__dirname, 'src/public/images/header-slider/pic2.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/header-slider')
@@ -160,16 +166,16 @@ module.exports = {
     new HTMLWebpackPlugin({
       template: './index.html',
       minify: {
-        collapseWhitespace:true
+        collapseWhitespace: true
       }
     }),
     new MiniCssExtractPlugin({
       filename: filename('css')
     })
   ],
-  optimization:optimization(), //in order to not make two layers of the same code(i.e. jquery)
-  module:{
-    rules:[
+  optimization: optimization(), //in order to not make two layers of the same code(i.e. jquery)
+  module: {
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -194,6 +200,12 @@ module.exports = {
       {
         test: /\.(png|jpg|gif|svg)$/,
         use: ['file-loader']
+        // use: {
+        //   loader: "url-loader",
+        //   options: {
+        //     limit: 25000,
+        //   },
+        // }
       },
       {
         test: /\.(woff|woff2|ttf|otf|eot)$/,

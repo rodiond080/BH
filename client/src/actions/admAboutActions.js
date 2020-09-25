@@ -6,6 +6,17 @@ import {
 import io from 'socket.io-client';
 import ss from 'socket.io-stream';
 
+function readFileAsync(file) {
+  return new Promise((res, rej) => {
+    let reader = new FileReader();
+    reader.onload = () => {
+      res(reader.result);
+    }
+    reader.onerror = rej;
+    reader.readAsDataURL(file);
+  })
+}
+
 export function setAdminAboutContent(content, files) {
   return (dispatch) => {
 
@@ -13,12 +24,24 @@ export function setAdminAboutContent(content, files) {
       dispatch(init());
       var socket = io.connect('http://localhost:5001');
 
-      console.log(Array.from(files))
-      Array.from(files).forEach(file=>{
+      Array.from(files).forEach(async (file) => {
         // const file = files[0];
+        //Blob
+        const blobForImgSketch = await readFileAsync(file);
+        const imgSketch = document.createElement('div');
+        imgSketch.style.backgroundImage='url(\''+blobForImgSketch+'\')';
+        imgSketch.style.width= '50px'
+        imgSketch.style.height= '50px'
+
+        document.getElementById('xxx').appendChild(imgSketch);
+
+
+        // const prefix = new Date().getTime().toString().slice(9);
+
+
         const ind = document.createElement('p');
-        ind.innerHTML='0%'
-        document.getElementById('xxx').appendChild(ind)
+        ind.innerHTML = '0%'
+        document.getElementById('xxx').appendChild(ind);
 
 
         const stream = ss.createStream();
@@ -32,16 +55,12 @@ export function setAdminAboutContent(content, files) {
 
         blobStream.on('data', function (chunk) {
           size += chunk.length;
-          ind.innerHTML=Math.floor(size / file.size * 100) + '%'
+          ind.innerHTML = Math.floor(size / file.size * 100) + '%'
           // console.log(Math.floor(size / file.size * 100) + '%');
         });
 
         blobStream.pipe(stream);
       });
-
-
-
-
 
 
       // const file = files[0];
@@ -60,9 +79,6 @@ export function setAdminAboutContent(content, files) {
       // });
       //
       // blobStream.pipe(stream);
-
-
-
 
 
       //--------------------------------------or with axios

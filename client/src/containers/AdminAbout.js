@@ -1,7 +1,12 @@
-import React, {useRef, useEffect} from 'react';
+import React, {lazy, useRef, useEffect} from 'react';
 import {setAdminAboutContent, getAdminAboutContent} from "../actions/admAboutActions";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
+// import * as images from '../public/images';
+import * as images from '../../../img/index';
+
+// const images = require.context('../../../img', true);
+
 
 function mapStateToProps(state) {
   return {
@@ -64,6 +69,9 @@ const AdminAbout = (props) => {
 
   useEffect(() => {
     props.getAdminAboutContent();
+    // console.log(new Date().getTime().toString().slice(new Date().getTime().toString().length-5, 3));
+    // console.log()
+    // console.log(new Date().getTime().toString())
 
     // textArea.html = props.admAboutContent;
     // textArea.current.innerHTML=props.admAboutContent;
@@ -76,19 +84,23 @@ const AdminAbout = (props) => {
   }, [textArea]);
 
   return (
-    <div id="xxx" className="admin__about">
+    <div  className="admin__about">
       <div className="admin__about-heading">Admen heading</div>
       <div className="admin__about-buttons">
-        <input className="admin__about-img" onChange={(e)=>props.setAdminAboutContent(textArea.current.innerHTML, e.target.files)} multiple type="file" id='imgbutton'
+        <input className="admin__about-img"
+               onChange={(e) => props.setAdminAboutContent(textArea.current.innerHTML, e.target.files)} multiple
+               type="file" id='imgbutton'
                accept="image/*"/>
         <label className="ladmin__about-img" htmlFor="imgbutton">
           <i className="far fa-file-image"></i>
         </label>
       </div>
 
-      <div ref={textArea} suppressContentEditableWarning={true} contentEditable={"true"}
+      <div id="xxx" ref={textArea} suppressContentEditableWarning={true} contentEditable={"true"}
            className="admin__about-content" dangerouslySetInnerHTML={{__html: props.admAboutContent}}></div>
       <button onClick={() => props.setAdminAboutContent(textArea.current.innerHTML)}>Save</button>
+
+      <img src={images["nodeimg"]} alt=""/>
     </div>
   )
 }

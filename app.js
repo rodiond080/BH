@@ -6,7 +6,7 @@ const admAboutRoutes = require('./routes/admAboutRouter');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'img')));
 // app.use(bodyParser.json());
 app.use(express.json({extended:true}));
 app.use(express.urlencoded({extended:true}));
@@ -21,7 +21,6 @@ async function start() {
     /*await mongoose.connect(config.get('mongoUri'), {
       useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex: true
     })*/
-    console.log(path.resolve())
     app.listen(PORT, () => console.log(`Server is launched. Port: ${PORT}...`))
   } catch (e) {
     console.log('Server Error', e.message)

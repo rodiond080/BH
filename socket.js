@@ -10,7 +10,8 @@ io.on('connection', function (socket) {
   console.log(`socket in laucnhed. Port: ${socketPort}`)
   ss(socket).on('img-about-upload', function (stream, data) {
     /////////////////////////isDev ?
-    const pathForImages = path.resolve(__dirname, 'img/about');
+
+    const pathForImages = path.resolve(__dirname, 'client/public/images/about');
     // fs.readdir(pathForImages, (err, items) => {
     //   console.log(items)
     // });

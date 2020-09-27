@@ -1,8 +1,8 @@
 import {
   ADM_SET_ABOUT_INIT, ADM_SET_ABOUT_SUCCESS, ADM_SET_ABOUT_ERROR,
-  ADM_GET_ABOUT_INIT, ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR
+  ADM_GET_ABOUT_INIT, ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR, ADM_SET_CONTENT_TOUCHED
 } from "../_constants/admAboutConstants";
-
+import axios from 'axios';
 import io from 'socket.io-client';
 import ss from 'socket.io-stream';
 
@@ -17,31 +17,54 @@ function readFileAsync(file) {
   })
 }
 
-export function setAdminAboutContent(content, files) {
+export function setContentTouched(e) {
   return (dispatch) => {
+    dispatch(init())
+    dispatch(success())
+  }
+
+  function init() {
+    return {
+      type: ADM_SET_CONTENT_TOUCHED,
+      contentTouched: true
+    }
+  }
+
+  function success() {
+    return {
+      type: ADM_SET_CONTENT_TOUCHED,
+      contentTouched: true
+    }
+  }
+}
+
+export function setAdminAboutContent(e, content, touched) {
+
+  return (dispatch) => {
+    // e.preventDefault();
 
     try {
       dispatch(init());
       var socket = io.connect('http://localhost:5001');
+      console.log(e.target)
+
+      const files = e.target.files;
+      const listOfFileNames = [];
 
       Array.from(files).forEach(async (file) => {
-        // const file = files[0];
+        listOfFileNames.push(file.name);
+
         //Blob
         const blobForImgSketch = await readFileAsync(file);
         const imgSketch = document.createElement('div');
-        imgSketch.style.backgroundImage='url(\''+blobForImgSketch+'\')';
-        imgSketch.style.width= '50px'
-        imgSketch.style.height= '50px'
-
+        imgSketch.contentEditable = false
+        imgSketch.classList.add('admin__about-image');
+        imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
         document.getElementById('xxx').appendChild(imgSketch);
 
-
-        // const prefix = new Date().getTime().toString().slice(9);
-
-
-        const ind = document.createElement('p');
-        ind.innerHTML = '0%'
-        document.getElementById('xxx').appendChild(ind);
+        // const ind = document.createElement('p');
+        // ind.innerHTML = '0%'
+        // imgSketch.appendChild(ind);
 
 
         const stream = ss.createStream();
@@ -55,49 +78,23 @@ export function setAdminAboutContent(content, files) {
 
         blobStream.on('data', function (chunk) {
           size += chunk.length;
-          ind.innerHTML = Math.floor(size / file.size * 100) + '%'
+          // ind.innerHTML = Math.floor(size / file.size * 100) + '%';
           // console.log(Math.floor(size / file.size * 100) + '%');
         });
-
         blobStream.pipe(stream);
+
+        axios.post('/api/adm/about/setaboutcontent',
+          {
+            imageNames: JSON.stringify(listOfFileNames),
+            aboutContent:JSON.stringify(content)
+          }
+        )
+          .then(res => {
+            console.log(res)
+          })
+
       });
-
-
-      // const file = files[0];
-      // const stream = ss.createStream();
-      // ss(socket).emit('img-about-upload', stream, {
-      //   size: file.size, name: file.name
-      // });
-      // ss.createStream(file).pipe(stream);
-      //
-      // var blobStream = ss.createBlobReadStream(file);
-      // var size = 0;
-      //
-      // blobStream.on('data', function (chunk) {
-      //   size += chunk.length;
-      //   console.log(Math.floor(size / file.size * 100) + '%');
-      // });
-      //
-      // blobStream.pipe(stream);
-
-
-      //--------------------------------------or with axios
-      // img-about-upload
-
-
-      // const fd = new FormData();
-      // fd.append('content', content);
-      // fetch('/api/adm/about/setaboutcontent', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json;charset=utf-8'
-      //   },
-      //   body: JSON.stringify({content: content})
-      // })
-      //   .then(res => res.json())
-      //   .then((res) => {
       dispatch(success());
-      //   });
     } catch (e) {
       dispatch(error(e));
     }
@@ -115,7 +112,6 @@ export function setAdminAboutContent(content, files) {
   function success() {
     return {
       type: ADM_SET_ABOUT_SUCCESS,
-      // admAboutContent: admAboutContent,
       loading: false
     }
   }

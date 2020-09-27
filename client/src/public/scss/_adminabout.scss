@@ -20,12 +20,25 @@
     //background-color: #b4b3b3;
     border: 1px solid #adadad;
     margin: 0 5px;
-    height: 200px;
     font-size: 20px;
+    height: 200px;
+    background-position: center;
+
     padding: 10px;
     line-height: 24px;
     //border: 2px solid red;
+
   }
+
+
+  &-image{
+    border: 1px solid black;
+    width: 100px;
+    background-position: center;
+    background-size: cover;
+    height: 100px;
+  }
+
 
   &-buttons{
     display: flex;

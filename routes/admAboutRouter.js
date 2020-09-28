@@ -8,17 +8,16 @@ const AboutContent = require('../models/AboutContent');
 
 router.post('/setaboutcontent', async (req, res) => {
 
-  console.log(req.body.aboutContent)
-  // const aboutContent = new AboutContent({
-  //   aboutContent: req.body.aboutContent
-  // });
-  //
-  // try {
-  //   await aboutContent.save();
+  const aboutContent = new AboutContent({
+    aboutContent: req.body.aboutContent
+  });
+
+  try {
+    await aboutContent.save();
     res.status(200).json('Completed!');
-  // } catch (e) {
-  //   console.log(e);
-  // }
+  } catch (e) {
+    console.log(e);
+  }
 });
 
 router.post('/getaboutcontent', async (req, res) => {

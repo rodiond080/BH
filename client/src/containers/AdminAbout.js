@@ -41,6 +41,7 @@ const AdminAbout = (props) => {
 
   useEffect(() => {
       props.getAdminAboutContent();
+    // console.log(document.querySelector('img.admin__about-image'));
   }, [textArea, props.contentTouched]);
 
   return (

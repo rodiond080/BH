@@ -46,25 +46,18 @@ export function setAdminAboutContent(e, content, touched) {
     try {
       dispatch(init());
       var socket = io.connect('http://localhost:5001');
-      console.log(e.target)
 
       const files = e.target.files;
       const listOfFileNames = [];
 
       Array.from(files).forEach(async (file) => {
-        listOfFileNames.push(file.name);
-
         //Blob
         const blobForImgSketch = await readFileAsync(file);
-        const imgSketch = document.createElement('div');
-        imgSketch.contentEditable = false
+        const imgSketch = document.createElement('img');
         imgSketch.classList.add('admin__about-image');
+        imgSketch.nameId = file.name;
         imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
         document.getElementById('xxx').appendChild(imgSketch);
-
-        // const ind = document.createElement('p');
-        // ind.innerHTML = '0%'
-        // imgSketch.appendChild(ind);
 
 
         const stream = ss.createStream();
@@ -75,25 +68,39 @@ export function setAdminAboutContent(e, content, touched) {
 
         var blobStream = ss.createBlobReadStream(file);
         var size = 0;
-
         blobStream.on('data', function (chunk) {
           size += chunk.length;
           // ind.innerHTML = Math.floor(size / file.size * 100) + '%';
           // console.log(Math.floor(size / file.size * 100) + '%');
         });
         blobStream.pipe(stream);
-
-        axios.post('/api/adm/about/setaboutcontent',
-          {
-            imageNames: JSON.stringify(listOfFileNames),
-            aboutContent:JSON.stringify(content)
-          }
-        )
-          .then(res => {
-            console.log(res)
-          })
-
       });
+
+
+      for (let i = 0; i < document.getElementsByClassName('admin__about-image').length; i++) {
+        console.log(document.getElementsByClassName('admin__about-image')[i]);
+      }
+
+      // console.log(document.getElementsByClassName('admin__about-image'));
+
+      // let allImageTagsToSave = ;
+      // document.getElementsByClassName('admin__about-image').forEach(imageTag=>{
+      // console.log(imageTag)
+      // imageTag.style.backgroundImage=   'url(\'' + '../public/images/about/'+imageTag.nameId + '\')';
+      // });
+
+      // window.addEventListener('load', function () {
+      //   console.log(document.getElementsByClassName('admin__about-image')[0]);
+      // })
+
+      axios.post('/api/adm/about/setaboutcontent', {
+        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML)
+      })
+        .then(res => {
+          // console.log(res)
+        })
+
+
       dispatch(success());
     } catch (e) {
       dispatch(error(e));

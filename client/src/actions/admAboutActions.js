@@ -78,7 +78,8 @@ export function setAdminAboutContent(e, content, touched) {
 
 
       for (let i = 0; i < document.getElementsByClassName('admin__about-image').length; i++) {
-        console.log(document.getElementsByClassName('admin__about-image')[i]);
+        const imageTag = document.getElementsByClassName('admin__about-image')[i];
+        imageTag.style.backgroundImage = 'url(\'' + '../public/images/about/' + imageTag.nameId + '\')';
       }
 
       // console.log(document.getElementsByClassName('admin__about-image'));

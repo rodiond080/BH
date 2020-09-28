@@ -26,7 +26,9 @@ router.post('/getaboutcontent', async (req, res) => {
     // console.log(path.resolve())
     const coreDir = path.resolve();
     // let str = `This is a content about the cooker <img src="../public/images/about/CBo-GAE-ioY.jpg" class="admin__about-image" />`;
-    let str = `This is a content about the cooker `;
+
+
+    let str = `This is a content about the cooker <img src="../public/images/about/CBo-GAE-ioY.jpg" class="admin__about-image" /> <img src="../public/images/about/CBo-GAE-ioY.jpg" class="admin__about-image" /> `;
 
     // let path2 = path.resolve(__dirname, '../client/dist/public/images');
 

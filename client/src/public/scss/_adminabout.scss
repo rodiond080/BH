@@ -37,11 +37,13 @@
     background-position: center;
     background-size: cover;
     height: 100px;
+    position: relative;
     &:after{
-      content: '';
+      content: 'dsd';
       position: absolute;
       height: 20px;
       width: 100%;
+      border: 2px solid red;
       top:0;
       left: 0;
       background-color: rgba(245, 234, 15, .5);

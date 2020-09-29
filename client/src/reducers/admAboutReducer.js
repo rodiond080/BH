@@ -11,8 +11,6 @@ const admAboutState = {
   contentTouched:false
 };
 
-
-
 export default function admAboutReducer(state = admAboutState, action) {
   switch (action.type) {
     case ADM_GET_ABOUT_INIT:

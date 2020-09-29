@@ -41,17 +41,13 @@ export function setContentTouched(e) {
 export function setAdminAboutContent(e, content, touched) {
 
   return (dispatch) => {
-    // e.preventDefault();
 
     try {
       dispatch(init());
       var socket = io.connect('http://localhost:5001');
-
       const files = e.target.files;
-      const listOfFileNames = [];
 
       Array.from(files).forEach(async (file) => {
-        //Blob
         const blobForImgSketch = await readFileAsync(file);
         const imgSketch = document.createElement('img');
         imgSketch.classList.add('admin__about-image');
@@ -70,44 +66,25 @@ export function setAdminAboutContent(e, content, touched) {
         var size = 0;
         blobStream.on('data', function (chunk) {
           size += chunk.length;
-          // ind.innerHTML = Math.floor(size / file.size * 100) + '%';
           // console.log(Math.floor(size / file.size * 100) + '%');
+          if (size === file.size) {
+            imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + file.name + '\')';
+          }
         });
         blobStream.pipe(stream);
       });
 
 
-      for (let i = 0; i < document.getElementsByClassName('admin__about-image').length; i++) {
-        const imageTag = document.getElementsByClassName('admin__about-image')[i];
-        imageTag.style.backgroundImage = 'url(\'' + '../public/images/about/' + imageTag.nameId + '\')';
-      }
-
-      // console.log(document.getElementsByClassName('admin__about-image'));
-
-      // let allImageTagsToSave = ;
-      // document.getElementsByClassName('admin__about-image').forEach(imageTag=>{
-      // console.log(imageTag)
-      // imageTag.style.backgroundImage=   'url(\'' + '../public/images/about/'+imageTag.nameId + '\')';
-      // });
-
-      // window.addEventListener('load', function () {
-      //   console.log(document.getElementsByClassName('admin__about-image')[0]);
-      // })
-
       axios.post('/api/adm/about/setaboutcontent', {
-        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML)
+        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
+      }).then(res => {
+        // console.log(res)
       })
-        .then(res => {
-          // console.log(res)
-        })
-
 
       dispatch(success());
     } catch (e) {
       dispatch(error(e));
     }
-
-
   }
 
   function init() {

@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import * as $ from 'jquery';
 import 'slick-carousel';
-import pic1 from '@/public/images/header-slider/pic1.jpg'
+import pic1 from '@public/images/header-slider/pic1.jpg'
 
 
 const Home = (props) => {

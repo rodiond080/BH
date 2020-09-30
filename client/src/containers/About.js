@@ -1,5 +1,5 @@
 import React from 'react';
-import photo from '@public/images/about/CBo-GAE-ioY.jpg';
+import photo from '@public/images/logo.png';
 import {withRouter} from "react-router";
 
 const About = (props)=>{

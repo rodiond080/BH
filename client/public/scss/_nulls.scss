@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+$primaryColor:#50858F;
+$secondaryColor: #8F5E72;
+$thirdColor:#8F8742;
+$fourthColor:#423F22;
+$whiteColor:#FFFFFF;
+$brightGrayColor: #e7e7e7;
+$grayColor: #5f5f5f;
+$middleGrayColor: #908f8f;
+$lightGrayColor: #b4b4b4;
+$linkNavColor:$grayColor;
+$adminDark: #212d32;
+$adminBright: #444d52;
+
+$brighterBlack:black;
+$brightBlack: #454545;
+
+$primaryFont: 'Montserrat', sans-serif;
+$secondaryFont: 'Montserrat', sans-serif;
+$thirdFont: 'Montserrat', sans-serif;
+$rPrimaryFont:  'Montserrat', sans-serif;
+$rSecondaryFont:  'Montserrat', sans-serif;
+$rThirdyFont:  'Montserrat', sans-serif;
+
+$fontfamily:$primaryFont;
+$minwidth:320px;
+
+
+*{padding: 0px;margin: 0px;border: 0px;}
+*,*:before, *:after{-moz-box-sizing: border-box;-webkit-box-sizing: border-box}
+:focus, :active{outline: none}
+a:focus, a:active{outline: none}
+aside,nav,footer,header,section{display: block}
+html,body{height: 100%; min-width: $minwidth; }
+body{line-height: 1; font-size: 14px; font-family: $fontfamily; -ms-text-size-adjust: 100%; -moz-text-size-adjust: 100%; -webkit-text-size-adjust: 100%}
+input,button,textarea{font-family: $fontfamily}
+input::-ms-clear{display: none}
+button{cursor: pointer}
+button::-moz-focus-inner{padding:0; border: 0;}
+a, a:visited{text-decoration: none; color:$linkNavColor }
+a:hover{text-decoration: none;}
+ul li{list-style: none}
+img{vertical-align: top;}
+h1,h2,h3,h4,h5,h6{font-weight: inherit; font-size: inherit;}
+html{box-sizing: border-box;}
+*, *:after, *:before{box-sizing: inherit}

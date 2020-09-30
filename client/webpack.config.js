@@ -103,7 +103,7 @@ module.exports = {
     extensions: ['.js', '.json', '.png'],//in order to write imports without dots.ext
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      '@public': path.resolve(__dirname, 'src', 'public'),
+      '@public': path.resolve(__dirname, 'public'),
       '@server': path.resolve()
     }
   },
@@ -118,51 +118,51 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: path.resolve(__dirname, 'src/public/images/logo.png'),
+          from: path.resolve(__dirname, 'public/images/logo.png'),
           to: path.resolve(__dirname, 'dist/public/images')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/header-slider/pic1.jpg'),
+          from: path.resolve(__dirname, 'public/images/header-slider/pic1.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/header-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/header-slider/pic2.jpg'),
+          from: path.resolve(__dirname, 'public/images/header-slider/pic2.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/header-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/header-slider/pic3.jpg'),
+          from: path.resolve(__dirname, 'public/images/header-slider/pic3.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/header-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic1.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic1.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic2.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic2.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic3.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic3.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic4.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic4.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic5.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic5.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic6.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic6.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic7.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic7.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
         {
-          from: path.resolve(__dirname, 'src/public/images/main-slider/pic8.jpg'),
+          from: path.resolve(__dirname, 'public/images/main-slider/pic8.jpg'),
           to: path.resolve(__dirname, 'dist/public/images/main-slider')
         },
       ]

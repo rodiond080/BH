@@ -65,9 +65,9 @@ router.post('/updateaboutcontent', async (req, res) => {
 router.post('/getaboutcontent', async (req, res) => {
   try {
     const candidate = await AboutContent.findOne();
-    if(candidate){
+    if (candidate) {
       res.status(200).json(candidate.aboutContent);
-    }else {
+    } else {
       res.status(400).json('');
     }
   } catch (e) {

@@ -37,9 +37,10 @@ router.post('/updateaboutcontent', async (req, res) => {
     const pathToCheck = path.join(__dirname, '..', config.get('imagesPath'), 'about');
 
     fs.readdir(pathToCheck, (err, files) => {
-      files.forEach(file=>{
-        if(!imagesToUpdateArr.includes(file)){
-          fs.unlink(path.join(pathToCheck, file), ()=>{});
+      files.forEach(file => {
+        if (!imagesToUpdateArr.includes(file)) {
+          fs.unlink(path.join(pathToCheck, file), () => {
+          });
         }
       })
     });
@@ -59,41 +60,19 @@ router.post('/updateaboutcontent', async (req, res) => {
     console.log(e);
     res.status(500).json({message: 'Something went wrong. Try again.'});
   }
-
-
-  // console.log(candidate)
-
-
-  // const aboutContent = new AboutContent({
-  //   aboutContent: req.body.aboutContent
-  // });
-  //
-  // const imagesToUpdate = req.body.imagesToUpdate;
-  //
-  // try {
-  //   await aboutContent.save();
-  //   res.status(200).json('Completed!');
-  // } catch (e) {
-  //   console.log(e);
-  // }
 });
 
 router.post('/getaboutcontent', async (req, res) => {
   try {
-//     let str = `This is a content about the cooker
-// <img src="../public/images/about/CBo-GAE-ioY.jpg" class="admin__about-image" nameId="idite nahui" />
-// <img src="../public/images/about/CBo-GAE-ioY.jpg" class="admin__about-image" nameId="idite nahui2"/> `;
-
-
-//     let str = `This is a content about the cooker
-// <img src="../public/images/about/CBo-GAE-ioY.jpg" class="admin__about-image" data-nameId="nahui" />
-// <img src="../public/images/about/CBo-GAE-ioY.jpg" class="admin__about-image" data-nameId="nahui2"/> `;
-
-
-
-    res.status(200).json(str);
+    const candidate = await AboutContent.findOne();
+    if(candidate){
+      res.status(200).json(candidate.aboutContent);
+    }else {
+      res.status(400).json('');
+    }
   } catch (e) {
     console.log(e);
+    res.status(500).json({message: 'Something went wrong. Try again.'});
   }
 });
 

@@ -1,4 +1,4 @@
-import React, {lazy, useRef, useEffect} from 'react';
+import React, { useRef, useEffect} from 'react';
 import {setAdminAboutContent, getAdminAboutContent, setContentTouched, updateAdminAboutContent} from "../actions/admAboutActions";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
@@ -64,17 +64,6 @@ const AdminAbout = (props) => {
 
       <div id="xxx" ref={textArea} suppressContentEditableWarning={true} contentEditable={"true"}
            className="admin__about-content" dangerouslySetInnerHTML={{__html: props.admAboutContent}}></div>
-
-      {/*<ContentEditable*/}
-      {/*  id="xxx"*/}
-      {/*  html={props.admAboutContent}*/}
-      {/*  ref={textArea}*/}
-      {/*  onChange={(e) => {*/}
-      {/*    props.setContentTouched(e)*/}
-      {/*  }}*/}
-      {/*  disabled={false}*/}
-      {/*  className="admin__about-content"*/}
-      {/*/>*/}
       <button onClick={(e) => props.updateAdminAboutContent(e)}>Save</button>
     </div>
   )

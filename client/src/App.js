@@ -55,7 +55,7 @@ export default App;
 
 
 // import React, {Component} from 'react';
-// import '@public/scss/style.scss';
+// import '@public/scsss/style.scsss';
 // import {useRoutes} from "./routes";
 // import {connect} from 'react-redux';
 // import {BrowserRouter as Router} from 'react-router-dom';

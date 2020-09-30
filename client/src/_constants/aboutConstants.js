@@ -1,0 +1,3 @@
+export const GET_ABOUT_INIT = 'GET_ABOUT_INIT';
+export const GET_ABOUT_SUCCESS = 'GET_ABOUT_SUCCESS';
+export const GET_ABOUT_ERROR = 'GET_ABOUT_ERROR';

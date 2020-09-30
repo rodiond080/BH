@@ -37,12 +37,14 @@ router.post('/updateaboutcontent', async (req, res) => {
     const pathToCheck = path.join(__dirname, '..', config.get('imagesPath'), 'about');
 
     fs.readdir(pathToCheck, (err, files) => {
-      files.forEach(file => {
-        if (!imagesToUpdateArr.includes(file)) {
-          fs.unlink(path.join(pathToCheck, file), () => {
-          });
-        }
-      })
+      if (files) {
+        files.forEach(file => {
+          if (!imagesToUpdateArr.includes(file)) {
+            fs.unlink(path.join(pathToCheck, file), () => {
+            });
+          }
+        })
+      }
     });
 
     if (!candidate) {

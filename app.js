@@ -11,7 +11,6 @@ app.use(express.static(path.join(__dirname, 'img')));
 app.use(express.json({extended:true}));
 app.use(express.urlencoded({extended:true}));
 // app.use('/', homeRoutes);
-// app.use('/about', aboutRoutes);
 app.use('/api/adm/about', admAboutRoutes);
 
 const PORT = config.get('port') || 5000 ;

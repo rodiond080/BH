@@ -1,12 +1,13 @@
 import {
   ADM_SET_ABOUT_INIT, ADM_SET_ABOUT_SUCCESS, ADM_SET_ABOUT_ERROR,
-  ADM_GET_ABOUT_INIT, ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR, ADM_SET_CONTENT_TOUCHED
+  ADM_GET_ABOUT_INIT, ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR,
+  ADM_SET_CONTENT_TOUCHED, ADM_UPDATE_ABOUT
 } from "../_constants/admAboutConstants";
 
 const admAboutState = {
   loading: false,
   admAboutContent: '',
-  filesToUpload: [],
+  imgNamesToUpdate: [],
   error: null,
   contentTouched:false
 };
@@ -49,6 +50,11 @@ export default function admAboutReducer(state = admAboutState, action) {
       return {
         ...state,
         contentTouched:action.contentTouched
+      }
+    case ADM_UPDATE_ABOUT:
+      return {
+        // ...state,
+        // contentTouched:action.contentTouched
       }
   }
   return state

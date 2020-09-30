@@ -1,5 +1,5 @@
 import React, {lazy, useRef, useEffect} from 'react';
-import {setAdminAboutContent, getAdminAboutContent, setContentTouched} from "../actions/admAboutActions";
+import {setAdminAboutContent, getAdminAboutContent, setContentTouched, updateAdminAboutContent} from "../actions/admAboutActions";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import ContentEditable from 'react-contenteditable'
@@ -8,7 +8,7 @@ function mapStateToProps(state) {
   return {
     loading: state.admAboutReducer.loading,
     admAboutContent: state.admAboutReducer.admAboutContent,
-    filesToUpload: state.admAboutReducer.filesToUpload,
+    imgNamesToUpdate: state.admAboutReducer.imgNamesToUpdate,
     error: state.admAboutReducer.error,
     contentTouched: state.admAboutReducer.contentTouched,
   }
@@ -18,7 +18,8 @@ function mapDispatchToProps(dispatch) {
   return {
     setAdminAboutContent: (e,content, files) => dispatch(setAdminAboutContent(e,content, files)),
     getAdminAboutContent: () => dispatch(getAdminAboutContent()),
-    setContentTouched: (e) => dispatch(setContentTouched(e))
+    setContentTouched: (e) => dispatch(setContentTouched(e)),
+    updateAdminAboutContent: (e) => dispatch(updateAdminAboutContent(e)),
   }
 }
 
@@ -74,7 +75,7 @@ const AdminAbout = (props) => {
       {/*  disabled={false}*/}
       {/*  className="admin__about-content"*/}
       {/*/>*/}
-      <button onClick={() => props.setAdminAboutContent(textArea.current.innerHTML)}>Save</button>
+      <button onClick={(e) => props.updateAdminAboutContent(e)}>Save</button>
     </div>
   )
 }

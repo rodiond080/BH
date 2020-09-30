@@ -1,6 +1,7 @@
 import {
   ADM_SET_ABOUT_INIT, ADM_SET_ABOUT_SUCCESS, ADM_SET_ABOUT_ERROR,
-  ADM_GET_ABOUT_INIT, ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR, ADM_SET_CONTENT_TOUCHED
+  ADM_GET_ABOUT_INIT, ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR,
+  ADM_SET_CONTENT_TOUCHED, ADM_UPDATE_ABOUT
 } from "../_constants/admAboutConstants";
 import axios from 'axios';
 import io from 'socket.io-client';
@@ -15,6 +16,52 @@ function readFileAsync(file) {
     reader.onerror = rej;
     reader.readAsDataURL(file);
   })
+}
+
+export function updateAdminAboutContent(e) {
+  e.preventDefault();
+  return (dispatch) => {
+    try {
+      dispatch(init());
+      const imagesTagsToUpdate = document.getElementsByClassName('admin__about-image');
+      const imagesToUpdate = Array.from(imagesTagsToUpdate).map(imgTag=>{
+        return imgTag.attributes.getNamedItem('data-nameId').value;
+      });
+
+      axios.post('/api/adm/about/updateaboutcontent', {
+        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
+        imagesToUpdate: JSON.stringify(imagesToUpdate),
+      }).then(res => {
+        dispatch(success());
+      });
+
+      dispatch(success());
+    } catch (e) {
+      dispatch(error(e));
+    }
+  }
+
+  function init() {
+    return {
+      type: ADM_SET_ABOUT_INIT,
+      loading: true
+    }
+  }
+
+  function success() {
+    return {
+      type: ADM_SET_ABOUT_SUCCESS,
+      loading: false
+    }
+  }
+
+  function error(error) {
+    return {
+      type: ADM_SET_ABOUT_ERROR,
+      error: error,
+      loading: false
+    }
+  }
 }
 
 export function setContentTouched(e) {
@@ -51,7 +98,7 @@ export function setAdminAboutContent(e, content, touched) {
         const blobForImgSketch = await readFileAsync(file);
         const imgSketch = document.createElement('img');
         imgSketch.classList.add('admin__about-image');
-        imgSketch.nameId = file.name;
+        imgSketch.setAttribute('data-nameId',  file.name);
         imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
         document.getElementById('xxx').appendChild(imgSketch);
 
@@ -79,9 +126,10 @@ export function setAdminAboutContent(e, content, touched) {
         aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
       }).then(res => {
         // console.log(res)
+        dispatch(success());
       })
 
-      dispatch(success());
+
     } catch (e) {
       dispatch(error(e));
     }

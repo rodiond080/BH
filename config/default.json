@@ -3,5 +3,5 @@
   "socketPort": 5001,
   "jwtSecret": "rodion",
   "mongoUri":"mongodb://localhost/bh",
-  "imagesPath":"/"
+  "imagesPath":"client/public/images"
 }

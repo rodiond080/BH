@@ -24,43 +24,88 @@ export function setAdminAboutContent(e, content, touched) {
 
     try {
       dispatch(init());
-      var socket = io.connect('http://localhost:5001');
       const files = e.target.files;
-
+      console.log(files)
       Array.from(files).forEach(async (file) => {
         const blobForImgSketch = await readFileAsync(file);
         const imgSketch = document.createElement('img');
         imgSketch.classList.add('admin__about-image');
-        imgSketch.setAttribute('data-nameId', file.name);
+        const fileName = Date.now().toString().substr(9, 4) + file.name;
+        imgSketch.setAttribute('data-nameId', fileName);
         imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
         document.getElementById('xxx').appendChild(imgSketch);
 
+        const fd = new FormData();
 
-        const stream = ss.createStream();
-        ss(socket).emit('img-about-upload', stream, {
-          size: file.size, name: file.name
-        });
-        ss.createStream(file).pipe(stream);
+        fd.append('image',  file, fileName);
+        axios.post('/api/adm/about/setaboutcontent', fd, {
+          onUploadProgress: function (progressEvent) {
+            var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                if (percentCompleted === 100) {
+                  imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + fileName + '\')';
+                }
+            console.log(percentCompleted);
 
-        var blobStream = ss.createBlobReadStream(file);
-        var size = 0;
-        blobStream.on('data', function (chunk) {
-          size += chunk.length;
-          // console.log(Math.floor(size / file.size * 100) + '%');
-          if (size === file.size) {
-            imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + file.name + '\')';
+            // document.getElementById('output').innerHTML = percentCompleted;
           }
-        });
-        blobStream.pipe(stream);
+        })
+          .then(res => {
+            console.log(res);
+            dispatch(success());
+          })
+
+
+        //   axios.post('/api/adm/about/setaboutcontent', fd,
+        //     {
+        //
+        //     }
+        //   ),
+        // ).
+        //   then(res => {
+        //     // console.log(res)
+        //     dispatch(success());
+        //   })
+
+
       });
 
-
-      axios.post('/api/adm/about/setaboutcontent', {
-        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
-      }).then(res => {
-        // console.log(res)
-        dispatch(success());
-      })
+      // var socket = io.connect('http://localhost:5001');
+      // const files = e.target.files;
+      //
+      // Array.from(files).forEach(async (file) => {
+      //   const blobForImgSketch = await readFileAsync(file);
+      //   const imgSketch = document.createElement('img');
+      //   imgSketch.classList.add('admin__about-image');
+      //   imgSketch.setAttribute('data-nameId', file.name);
+      //   imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
+      //   document.getElementById('xxx').appendChild(imgSketch);
+      //
+      //
+      //   const stream = ss.createStream();
+      //   ss(socket).emit('img-about-upload', stream, {
+      //     size: file.size, name: file.name
+      //   });
+      //   ss.createStream(file).pipe(stream);
+      //
+      //   var blobStream = ss.createBlobReadStream(file);
+      //   var size = 0;
+      //   blobStream.on('data', function (chunk) {
+      //     size += chunk.length;
+      //     // console.log(Math.floor(size / file.size * 100) + '%');
+      //     if (size === file.size) {
+      //       imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + file.name + '\')';
+      //     }
+      //   });
+      //   blobStream.pipe(stream);
+      // });
+      //
+      //
+      // axios.post('/api/adm/about/setaboutcontent', {
+      //   aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
+      // }).then(res => {
+      //   // console.log(res)
+      //   dispatch(success());
+      // })
 
 
     } catch (e) {
@@ -185,7 +230,7 @@ export function getAdminAboutContent() {
     return {
       type: ADM_GET_ABOUT_SUCCESS,
       admAboutContent: result.aboutContent,
-      imageSizes:result.imgSizes,
+      imageSizes: result.imgSizes,
       loading: false
     }
   }

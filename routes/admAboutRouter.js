@@ -5,9 +5,25 @@ const path = require('path');
 const config = require('config');
 const AboutContent = require('../models/AboutContent');
 var sizeOf = require('image-size');
-// const multer = require('multer');
+const multer = require('multer');
+// var upload = multer({ dest: 'client/public/images/about' });
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'client/public/images/about')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
 
-router.post('/setaboutcontent', async (req, res) => {
+var upload = multer({storage:storage});
+
+
+router.post('/setaboutcontent',
+  upload.single('image'),
+  async (req, res) => {
+    // console.log(req.body)
+  console.log(req.file);
   const candidate = await AboutContent.findOne();
   try {
     if (!candidate) {

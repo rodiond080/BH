@@ -4,11 +4,11 @@ const fs = require('fs');
 const path = require('path');
 const config = require('config');
 const AboutContent = require('../models/AboutContent');
+var sizeOf = require('image-size');
 // const multer = require('multer');
 
 router.post('/setaboutcontent', async (req, res) => {
   const candidate = await AboutContent.findOne();
-
   try {
     if (!candidate) {
       const aboutContent = new AboutContent({
@@ -29,7 +29,6 @@ router.post('/setaboutcontent', async (req, res) => {
 });
 
 router.post('/updateaboutcontent', async (req, res) => {
-
   const imagesToUpdateArr = JSON.parse(req.body.imagesToUpdate);
   const aboutContent = JSON.parse(req.body.aboutContent);
   try {
@@ -40,8 +39,7 @@ router.post('/updateaboutcontent', async (req, res) => {
       if (files) {
         files.forEach(file => {
           if (!imagesToUpdateArr.includes(file)) {
-            fs.unlink(path.join(pathToCheck, file), () => {
-            });
+            fs.unlink(path.join(pathToCheck, file), () => {});
           }
         })
       }
@@ -66,9 +64,24 @@ router.post('/updateaboutcontent', async (req, res) => {
 
 router.post('/getaboutcontent', async (req, res) => {
   try {
+    const pathToCheck = path.join(__dirname, '..', config.get('imagesPath'), 'about');
+    const imgSizes = [];
+    fs.readdir(pathToCheck, (err, files) => {
+      // console.log(files)
+      if (files) {
+        files.forEach(file => {
+          var dimensions = sizeOf(pathToCheck + '/' + file);
+          imgSizes.push({width: dimensions.width, height: dimensions.height});
+        });
+      }
+    });
+
     const candidate = await AboutContent.findOne();
     if (candidate) {
-      res.status(200).json(candidate.aboutContent);
+      res.status(200).json({
+        aboutContent: candidate.aboutContent,
+        imgSizes: imgSizes,
+      });
     } else {
       res.status(400).json('');
     }

@@ -12,14 +12,20 @@ export function getAboutContent() {
         .then(res => res.json())
         .then((res) => {
           const workingDiv = document.createElement('div');
-          workingDiv.innerHTML = res;
+          workingDiv.innerHTML = res.aboutContent;
           const imageTags = workingDiv.getElementsByClassName('admin__about-image');
-          Array.from(imageTags).forEach(imageTag=>{
+
+          let counter = 0;
+          Array.from(imageTags).forEach(imageTag => {
             imageTag.classList.remove('admin__about-image');
-            // imageTag.classList.add('admin__about-image');
+            counter%2===0 ? imageTag.style.float='left':imageTag.style.float='right';
+            counter++;
           });
 
-          dispatch(success(workingDiv.innerHTML));
+          dispatch(success({
+            admAboutContent: workingDiv.innerHTML,
+            imageSizes:res.imgSizes
+          }));
         })
     } catch (e) {
       dispatch(error(e));
@@ -33,10 +39,11 @@ export function getAboutContent() {
     }
   }
 
-  function success(aboutContent) {
+  function success(result) {
     return {
       type: GET_ABOUT_SUCCESS,
-      aboutContent: aboutContent,
+      aboutContent: result.admAboutContent,
+      imageSizes:result.imageSizes,
       loading: false
     }
   }

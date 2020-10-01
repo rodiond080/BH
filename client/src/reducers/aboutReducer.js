@@ -2,8 +2,9 @@ import {GET_ABOUT_INIT, GET_ABOUT_SUCCESS, GET_ABOUT_ERROR} from "../_constants/
 
 const aboutState = {
   aboutContent: '',
-  loading:false,
-  error:null
+  imageSizes: [],
+  loading: false,
+  error: null
 };
 
 export default function aboutReducer(state = aboutState, action) {
@@ -11,13 +12,14 @@ export default function aboutReducer(state = aboutState, action) {
     case GET_ABOUT_INIT:
       return {
         ...state,
-        loading:action.loading
+        loading: action.loading
       }
     case GET_ABOUT_SUCCESS:
       return {
         ...state,
-        loading:action.loading,
-        aboutContent:action.aboutContent
+        loading: action.loading,
+        aboutContent: action.aboutContent,
+        imageSizes: action.imageSizes
       }
     case GET_ABOUT_ERROR:
       return {

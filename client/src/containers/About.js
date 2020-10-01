@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 function mapStateToProps(state) {
   return {
     aboutContent: state.aboutReducer.aboutContent,
+    imageSizes: state.aboutReducer.imageSizes
   }
 }
 
@@ -15,8 +16,8 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
 const About = (props) => {
+  console.log(props.imageSizes);
 
   useEffect(() => {
     props.getAboutContent();
@@ -25,9 +26,7 @@ const About = (props) => {
   return (
     <section className="about__main">
       <div className="about__main-main">
-        <div className="border" dangerouslySetInnerHTML={{__html: props.aboutContent}}>
-
-        </div>
+        <div className="border" dangerouslySetInnerHTML={{__html: props.aboutContent}}></div>
       </div>
     </section>
   )

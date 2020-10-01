@@ -18,13 +18,86 @@ function readFileAsync(file) {
   })
 }
 
+export function setAdminAboutContent(e, content, touched) {
+
+  return (dispatch) => {
+
+    try {
+      dispatch(init());
+      var socket = io.connect('http://localhost:5001');
+      const files = e.target.files;
+
+      Array.from(files).forEach(async (file) => {
+        const blobForImgSketch = await readFileAsync(file);
+        const imgSketch = document.createElement('img');
+        imgSketch.classList.add('admin__about-image');
+        imgSketch.setAttribute('data-nameId', file.name);
+        imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
+        document.getElementById('xxx').appendChild(imgSketch);
+
+
+        const stream = ss.createStream();
+        ss(socket).emit('img-about-upload', stream, {
+          size: file.size, name: file.name
+        });
+        ss.createStream(file).pipe(stream);
+
+        var blobStream = ss.createBlobReadStream(file);
+        var size = 0;
+        blobStream.on('data', function (chunk) {
+          size += chunk.length;
+          // console.log(Math.floor(size / file.size * 100) + '%');
+          if (size === file.size) {
+            imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + file.name + '\')';
+          }
+        });
+        blobStream.pipe(stream);
+      });
+
+
+      axios.post('/api/adm/about/setaboutcontent', {
+        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
+      }).then(res => {
+        // console.log(res)
+        dispatch(success());
+      })
+
+
+    } catch (e) {
+      dispatch(error(e));
+    }
+  }
+
+  function init() {
+    return {
+      type: ADM_SET_ABOUT_INIT,
+      loading: true
+    }
+  }
+
+  function success() {
+    return {
+      type: ADM_SET_ABOUT_SUCCESS,
+      loading: false
+    }
+  }
+
+  function error(error) {
+    return {
+      type: ADM_SET_ABOUT_ERROR,
+      error: error,
+      loading: false
+    }
+  }
+}
+
 export function updateAdminAboutContent(e) {
   e.preventDefault();
   return (dispatch) => {
     try {
       dispatch(init());
       const imagesTagsToUpdate = document.getElementsByClassName('admin__about-image');
-      const imagesToUpdate = Array.from(imagesTagsToUpdate).map(imgTag=>{
+      const imagesToUpdate = Array.from(imagesTagsToUpdate).map(imgTag => {
         return imgTag.attributes.getNamedItem('data-nameId').value;
       });
 
@@ -85,79 +158,6 @@ export function setContentTouched(e) {
   }
 }
 
-export function setAdminAboutContent(e, content, touched) {
-
-  return (dispatch) => {
-
-    try {
-      dispatch(init());
-      var socket = io.connect('http://localhost:5001');
-      const files = e.target.files;
-
-      Array.from(files).forEach(async (file) => {
-        const blobForImgSketch = await readFileAsync(file);
-        const imgSketch = document.createElement('img');
-        imgSketch.classList.add('admin__about-image');
-        imgSketch.setAttribute('data-nameId',  file.name);
-        imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
-        document.getElementById('xxx').appendChild(imgSketch);
-
-
-        const stream = ss.createStream();
-        ss(socket).emit('img-about-upload', stream, {
-          size: file.size, name: file.name
-        });
-        ss.createStream(file).pipe(stream);
-
-        var blobStream = ss.createBlobReadStream(file);
-        var size = 0;
-        blobStream.on('data', function (chunk) {
-          size += chunk.length;
-          // console.log(Math.floor(size / file.size * 100) + '%');
-          if (size === file.size) {
-            imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + file.name + '\')';
-          }
-        });
-        blobStream.pipe(stream);
-      });
-
-
-      axios.post('/api/adm/about/setaboutcontent', {
-        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
-      }).then(res => {
-        // console.log(res)
-        dispatch(success());
-      })
-
-
-    } catch (e) {
-      dispatch(error(e));
-    }
-  }
-
-  function init() {
-    return {
-      type: ADM_SET_ABOUT_INIT,
-      loading: true
-    }
-  }
-
-  function success() {
-    return {
-      type: ADM_SET_ABOUT_SUCCESS,
-      loading: false
-    }
-  }
-
-  function error(error) {
-    return {
-      type: ADM_SET_ABOUT_ERROR,
-      error: error,
-      loading: false
-    }
-  }
-}
-
 export function getAdminAboutContent() {
   return (dispatch) => {
     try {
@@ -181,10 +181,11 @@ export function getAdminAboutContent() {
     }
   }
 
-  function success(admAboutContent) {
+  function success(result) {
     return {
       type: ADM_GET_ABOUT_SUCCESS,
-      admAboutContent: admAboutContent,
+      admAboutContent: result.aboutContent,
+      imageSizes:result.imgSizes,
       loading: false
     }
   }

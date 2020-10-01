@@ -1,5 +1,10 @@
-import React, { useRef, useEffect} from 'react';
-import {setAdminAboutContent, getAdminAboutContent, setContentTouched, updateAdminAboutContent} from "../actions/admAboutActions";
+import React, {useRef, useEffect} from 'react';
+import {
+  setAdminAboutContent,
+  getAdminAboutContent,
+  setContentTouched,
+  updateAdminAboutContent
+} from "../actions/admAboutActions";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 import ContentEditable from 'react-contenteditable'
@@ -16,9 +21,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    setAdminAboutContent: (e,content, files) => dispatch(setAdminAboutContent(e,content, files)),
+    setAdminAboutContent: (e, content, files) => dispatch(setAdminAboutContent(e, content, files)),
     getAdminAboutContent: () => dispatch(getAdminAboutContent()),
-    setContentTouched: (e) => dispatch(setContentTouched(e)),
+    // setContentTouched: (e) => dispatch(setContentTouched(e)),
     updateAdminAboutContent: (e) => dispatch(updateAdminAboutContent(e)),
   }
 }
@@ -31,17 +36,16 @@ function readFileAsync(file) {
     }
     reader.onerror = rej;
     reader.readAsDataURL(file);
-  })
+  });
 }
 
 
 const AdminAbout = (props) => {
   const textArea = useRef(null);
-
-
+  // console.log(props.imageSizes)
 
   useEffect(() => {
-      props.getAdminAboutContent();
+    props.getAdminAboutContent();
     // console.log(document.querySelector('img.admin__about-image'));
   }, [textArea, props.contentTouched]);
 
@@ -52,7 +56,7 @@ const AdminAbout = (props) => {
         <input className="admin__about-img"
                onChange={(e) => {
                  e.preventDefault();
-                 props.setAdminAboutContent(e,textArea.current.innerHTML, props.contentTouched)
+                 props.setAdminAboutContent(e, textArea.current.innerHTML, props.contentTouched)
                }}
                multiple
                type="file" id='imgbutton'

@@ -16,26 +16,22 @@ var storage = multer.diskStorage({
   }
 });
 
-var upload = multer({storage:storage});
+var upload = multer({storage: storage});
 
 
-router.post('/setaboutcontent',
-  upload.single('image'),
-  async (req, res) => {
-    // console.log(req.body)
-  console.log(req.file);
-  const candidate = await AboutContent.findOne();
+router.post('/setaboutcontent', upload.single('image'), async (req, res) => {
+  // const candidate = await AboutContent.findOne();
   try {
-    if (!candidate) {
-      const aboutContent = new AboutContent({
-        aboutContent: req.body.aboutContent
-      });
-      await aboutContent.save();
-      res.status(200).json('Completed!');
-    }
-
-    candidate.aboutContent = req.body.aboutContent;
-    await candidate.save();
+    // if (!candidate) {
+    //   const aboutContent = new AboutContent({
+    //     aboutContent: req.body.aboutContent
+    //   });
+    //   await aboutContent.save();
+    //   res.status(200).json('Completed!');
+    // }
+    //
+    // candidate.aboutContent = req.body.aboutContent;
+    // await candidate.save();
 
     res.status(200).json('Done!');
   } catch (e) {
@@ -55,7 +51,8 @@ router.post('/updateaboutcontent', async (req, res) => {
       if (files) {
         files.forEach(file => {
           if (!imagesToUpdateArr.includes(file)) {
-            fs.unlink(path.join(pathToCheck, file), () => {});
+            fs.unlink(path.join(pathToCheck, file), () => {
+            });
           }
         })
       }
@@ -106,5 +103,18 @@ router.post('/getaboutcontent', async (req, res) => {
     res.status(500).json({message: 'Something went wrong. Try again.'});
   }
 });
+
+router.post('/correctaboutcontent', async (req, res) => {
+  try {
+    req.body.imagesToDelete.forEach(imgToDelete => {
+      const pathToCheck = path.join(__dirname, '..', config.get('imagesPath'), 'about');
+      fs.unlink(path.join(pathToCheck, imgToDelete), () => {
+      });
+    });
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 
 module.exports = router;

@@ -28,23 +28,36 @@ export function setAdminAboutContent(e, content, touched) {
       console.log(files)
       Array.from(files).forEach(async (file) => {
         const blobForImgSketch = await readFileAsync(file);
-        const imgSketch = document.createElement('img');
-        imgSketch.classList.add('admin__about-image');
         const fileName = Date.now().toString().substr(9, 4) + file.name;
+        const imgSketch = document.createElement('div');
+        imgSketch.classList.add('admin__about-image');
+        imgSketch.setAttribute('data-nameId', fileName);
+        const imgLine = document.createElement('div');
+        imgLine.classList.add('line');
+        imgSketch.appendChild(imgLine);
+        imgSketch.contentEditable = false;
+
+
         imgSketch.setAttribute('data-nameId', fileName);
         imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
         document.getElementById('xxx').appendChild(imgSketch);
 
         const fd = new FormData();
 
-        fd.append('image',  file, fileName);
+        fd.append('image', file, fileName);
         axios.post('/api/adm/about/setaboutcontent', fd, {
           onUploadProgress: function (progressEvent) {
             var percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                if (percentCompleted === 100) {
-                  imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + fileName + '\')';
-                }
-            console.log(percentCompleted);
+            imgLine.style.width = '' + percentCompleted + '%';
+            if (percentCompleted === 100) {
+              imgSketch.remove();
+              const imgSketch2 = document.createElement('img');
+              imgSketch2.classList.add('admin__about-image');
+              imgSketch2.setAttribute('data-nameId', fileName);
+              document.getElementById('xxx').appendChild(imgSketch2);
+              imgSketch2.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
+              // imgSketch2.style.backgroundImage = 'url(\'' + '../public/images/about/' + fileName + '\')';
+            }
 
             // document.getElementById('output').innerHTML = percentCompleted;
           }
@@ -146,6 +159,11 @@ export function updateAdminAboutContent(e) {
         return imgTag.attributes.getNamedItem('data-nameId').value;
       });
 
+      Array.from(imagesTagsToUpdate).forEach(imgTag => {
+        const fileName = imgTag.attributes.getNamedItem('data-nameId').value;
+        imgTag.style.backgroundImage = 'url(\'' + '../public/images/about/' + fileName + '\')';
+      });
+
       axios.post('/api/adm/about/updateaboutcontent', {
         aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
         imagesToUpdate: JSON.stringify(imagesToUpdate),
@@ -243,6 +261,7 @@ export function getAdminAboutContent() {
     }
   }
 }
+
 
 
 // export function getAdminAboutContent(content) {

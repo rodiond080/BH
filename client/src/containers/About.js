@@ -17,16 +17,22 @@ function mapDispatchToProps(dispatch) {
 }
 
 const About = (props) => {
-  console.log(props.imageSizes);
+  // console.log(props.imageSizes);
 
   useEffect(() => {
     props.getAboutContent();
+
+
   }, [props.aboutContent]);
 
   return (
     <section className="about__main">
       <div className="about__main-main">
         <div className="border" dangerouslySetInnerHTML={{__html: props.aboutContent}}></div>
+
+
+        {/*<img src="../../public/images/about/1500pic4.jpg" alt=""/>*/}
+        
       </div>
     </section>
   )

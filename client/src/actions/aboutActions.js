@@ -17,14 +17,29 @@ export function getAboutContent() {
 
           let counter = 0;
           Array.from(imageTags).forEach(imageTag => {
+            const linkTag = document.createElement('a');
+            linkTag.style.cursor='pointer';
+            // linkTag.innerText='link';
+            // linkTag.href = 'javascript:void(0)';
+            // linkTag.href = '#';
+            imageTag.before(linkTag);
+            linkTag.appendChild(imageTag);
+            // console.log(linkTag)
+            linkTag.addEventListener('click', (e) => {
+              e.preventDefault();
+              console.log(2);
+            }, false);
+            // linkTag.appendChild(imageTag);
+
+
             imageTag.classList.remove('admin__about-image');
-            counter%2===0 ? imageTag.style.float='left':imageTag.style.float='right';
+            counter % 2 === 0 ? imageTag.style.float = 'left' : imageTag.style.float = 'right';
             counter++;
           });
 
           dispatch(success({
             admAboutContent: workingDiv.innerHTML,
-            imageSizes:res.imgSizes
+            imageSizes: res.imgSizes
           }));
         })
     } catch (e) {
@@ -43,7 +58,7 @@ export function getAboutContent() {
     return {
       type: GET_ABOUT_SUCCESS,
       aboutContent: result.admAboutContent,
-      imageSizes:result.imageSizes,
+      imageSizes: result.imageSizes,
       loading: false
     }
   }

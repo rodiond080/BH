@@ -39,14 +39,37 @@ function readFileAsync(file) {
   });
 }
 
-
 const AdminAbout = (props) => {
   const textArea = useRef(null);
   // console.log(props.imageSizes)
 
   useEffect(() => {
     props.getAdminAboutContent();
-    // console.log(document.querySelector('img.admin__about-image'));
+    document.getElementById('xxx').focus();
+    window.addEventListener('beforeunload', e => {
+      e.preventDefault();
+      try {
+        const imagesToDelete = [];
+        Array.from(document.getElementsByClassName('admin__about-image')).forEach(imgTag => {
+          if (imgTag.style.backgroundImage.length > 100) {
+            imagesToDelete.push(imgTag.getAttribute('data-nameId'));
+          }
+        });
+
+        fetch('/api/adm/about/correctaboutcontent', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          body: JSON.stringify({imagesToDelete: imagesToDelete})
+        }).then(res => res.json())
+          .then((res) => {
+            console.log(res);
+          })
+      } catch (e) {
+        console.log(e);
+      }
+    });
   }, [textArea, props.contentTouched]);
 
   return (

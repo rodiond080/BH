@@ -32,21 +32,19 @@
 
 
   &-image{
-    border: 1px solid black;
+    border: 1px solid transparent;
     width: 100px;
     background-position: center;
     background-size: cover;
     height: 100px;
     position: relative;
-    &:after{
-      content: 'dsd';
-      position: absolute;
-      height: 20px;
+    display: flex;
+
+    .line{
+      background-color: rgba(80, 80, 80, 0.5);
       width: 100%;
-      border: 2px solid red;
-      top:0;
-      left: 0;
-      background-color: rgba(245, 234, 15, .5);
+      height: 20px;
+
     }
   }
 

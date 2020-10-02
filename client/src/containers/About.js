@@ -21,6 +21,15 @@ const About = (props) => {
 
   useEffect(() => {
     props.getAboutContent();
+    Array.from(document.getElementsByTagName('a')).forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault();
+        a.children[0].classList.add('active');
+        // a.children[0].style.width='600px';
+        // a.children[0].style.height='400px';
+        // console.log(2)
+      })
+    })
 
 
   }, [props.aboutContent]);

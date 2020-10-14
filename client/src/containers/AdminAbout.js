@@ -7,7 +7,6 @@ import {
 } from "../actions/admAboutActions";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
-import ContentEditable from 'react-contenteditable'
 
 function mapStateToProps(state) {
   return {
@@ -73,8 +72,8 @@ const AdminAbout = (props) => {
   }, [textArea, props.contentTouched]);
 
   return (
-    <div className="admin__about">
-      <div className="admin__about-heading">Admen heading</div>
+    <div className="admin__about" >
+
       <div className="admin__about-buttons">
         <input className="admin__about-img"
                onChange={(e) => {

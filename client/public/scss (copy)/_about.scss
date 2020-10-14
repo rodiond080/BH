@@ -24,9 +24,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: .3s !important;
-
-        &:hover {
+        transition: .3s!important;
+        &:hover{
           cursor: pointer;
         }
       }
@@ -53,11 +52,13 @@
 
     .border {
       margin-top: 50px;
+
       //display: flex;
       //z-index:0!important;
 
-      &.active {
-      }
+
+
+      &.active {}
 
     }
 

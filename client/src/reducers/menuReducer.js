@@ -3,7 +3,8 @@ import {MENUCLOSE, MENUOPEN, CAKES, CAPCAKES} from "../_constants/menuConstants"
 const menuState = {
   menuOpen:false,
   cakesOpen:false,
-  capCakesOpen:false
+  capCakesOpen:false,
+  backdropActive:false
 };
 
 export default function menuReducer(state=menuState, action) {
@@ -32,6 +33,7 @@ export default function menuReducer(state=menuState, action) {
         cakesOpen: state.cakesOpen,
         capCakesOpen: !state.capCakesOpen
       }
+
   }
   return state
 }

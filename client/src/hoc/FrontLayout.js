@@ -1,4 +1,4 @@
-import React, {Component, useState, useEffect, useLayoutEffect} from 'react';
+import React, {useState, useEffect, useLayoutEffect} from 'react';
 import * as $ from 'jquery';
 import {SearchAndNavigation} from "../components/SearchAndNavigation";
 import {Footer} from "../components/Footer";
@@ -7,11 +7,12 @@ import {menuOpen, menuClose, toggleCakes, toggleCapCakes} from "../actions/menuA
 import {Crumbs} from "@/components/Crumbs";
 import {withRouter} from "react-router";
 
+
 function mapStateToProps(state) {
   return {
     menuOpen: state.menuReducer.menuOpen,
     cakesOpen: state.menuReducer.cakesOpen,
-    capCakesOpen: state.menuReducer.capCakesOpen,
+    capCakesOpen: state.menuReducer.capCakesOpen
   }
 }
 

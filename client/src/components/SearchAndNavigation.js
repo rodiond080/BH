@@ -73,9 +73,9 @@ export const SearchAndNavigation = (props)=>{
                 onClick={()=>props.toggleCakes()}
               >Торты</a>
               <ul className={cakeCls.join(' ')}>
-                <li><a href="#">Lorem ipsum.</a></li>
-                <li><a href="#">Lorem ipsum dolor sit amet, consectetur.</a></li>
-                <li><a href="#">Lorem ipsum dolor.</a></li>
+                <li><NavLink to="/cakes/category1">Category1</NavLink></li>
+                <li><NavLink to="/cakes/category2">Category2</NavLink></li>
+                <li><NavLink to="/cakes/category3">Category3</NavLink></li>
               </ul>
             </li>
             <li>

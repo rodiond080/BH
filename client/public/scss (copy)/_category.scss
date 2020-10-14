@@ -54,8 +54,7 @@
           li{
             border-bottom: 1px solid $brightGrayColor;
             padding: 10px 0;
-
-            &.active{
+            &:hover{
               a{
                 color: $secondaryColor;
                 *{
@@ -63,18 +62,6 @@
                 }
                 div{
                   background-color: $secondaryColor;
-                }
-              }
-            }
-
-            &:hover{
-              a{
-                color: $thirdColor;
-                *{
-                  color: $thirdColor;
-                }
-                div{
-                  background-color: $thirdColor;
                 }
               }
             }

@@ -3,11 +3,6 @@ import '@public/scss/style.scss';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import routes from "./routes";
 
-import About from "@/containers/About";
-import Home from "@/containers/Home";
-import FrontLayout from "./hoc/FrontLayout";
-import {Crumbs} from "./components/Crumbs";
-
 class App extends Component {
 
   render() {

@@ -1,6 +1,39 @@
-import {GET_ABOUT_INIT, GET_ABOUT_SUCCESS, GET_ABOUT_ERROR} from "../_constants/aboutConstants";
+import {
+  GET_ABOUT_INIT, GET_ABOUT_SUCCESS, GET_ABOUT_ERROR
+} from "../_constants/aboutConstants";
+import {TOGGLE_BACKDROP_ACTIVE} from "../_constants/aboutConstants";
 
 // import axios from 'axios';
+
+export function toggleBackdropActive(backdropActive) {
+  return (dispatch) => {
+    dispatch(success(backdropActive));
+  }
+
+  function success(backdropActive) {
+    return {
+      type: TOGGLE_BACKDROP_ACTIVE,
+      backdropActive: !backdropActive
+    }
+  }
+}
+
+function getWidth() {
+  if (window.innerWidth > 1240) {
+    return window.innerWidth / 3;
+  } else if (window.innerWidth < 1240 && window.innerWidth > 900) {
+    return window.innerWidth / 2;
+  } else {
+    return window.innerWidth;
+  }
+}
+
+function getHeight(incomingWight, incomingHeight) {
+  const newWidth = getWidth(incomingWight);
+  const newHeight = (newWidth*incomingHeight)/incomingWight
+  return newHeight;
+}
+
 
 export function getAboutContent() {
   return (dispatch) => {
@@ -17,8 +50,13 @@ export function getAboutContent() {
 
           let counter = 0;
           Array.from(imageTags).forEach(imageTag => {
+            imageTag.style.width = getWidth(res.imgSizes[counter].width) + 'px';
+            imageTag.style.height = getHeight(res.imgSizes[counter].width, res.imgSizes[counter].height) + 'px';
+
+
             const linkTag = document.createElement('a');
-            linkTag.style.cursor='pointer';
+            linkTag.classList.add('about__image-link');
+            linkTag.style.cursor = 'pointer';
             // linkTag.innerText='link';
             // linkTag.href = 'javascript:void(0)';
             // linkTag.href = '#';

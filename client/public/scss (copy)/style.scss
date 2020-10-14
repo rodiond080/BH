@@ -1,0 +1,31 @@
+@import "libs";
+@import "nulls";
+@import "consts";
+
+
+body{
+  background-color: $grayColor;
+  font-family: $rPrimaryFont;
+}
+
+body.active{
+  z-index: 50;
+  background: rgba(0, 0, 0, .7);
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@import "header";
+@import "adminlayout";
+@import "adminabout";
+@import "about";
+@import "main";
+@import "category";
+@import "product";
+@import "cart";
+@import "contact";
+@import "footer";
+@import "responsive";

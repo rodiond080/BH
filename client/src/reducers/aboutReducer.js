@@ -1,4 +1,5 @@
 import {GET_ABOUT_INIT, GET_ABOUT_SUCCESS, GET_ABOUT_ERROR} from "../_constants/aboutConstants";
+import {TOGGLE_BACKDROP_ACTIVE} from "../_constants/aboutConstants";
 
 const aboutState = {
   aboutContent: '',
@@ -25,6 +26,10 @@ export default function aboutReducer(state = aboutState, action) {
       return {
         ...state,
         error: action.error
+      }
+    case TOGGLE_BACKDROP_ACTIVE:
+      return {
+        backdropActive:action.backdropActive
       }
   }
   return state

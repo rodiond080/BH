@@ -3,6 +3,7 @@ const config = require('config');
 const mongoose=require('mongoose');
 const path = require('path');
 const admAboutRoutes = require('./routes/admAboutRouter');
+const admCakeRoutes = require('./routes/admCakeRouter');
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json({extended:true}));
 app.use(express.urlencoded({extended:true}));
 // app.use('/', homeRoutes);
 app.use('/api/adm/about', admAboutRoutes);
+app.use('/api/adm/cakes', admCakeRoutes);
 
 const PORT = config.get('port') || 5000 ;
 

@@ -1,50 +1,38 @@
 import React, {useRef, useEffect} from 'react';
 import {
-  setAdminAboutContent,
-  getAdminAboutContent,
-  setContentTouched,
-  updateAdminAboutContent
-} from "../actions/admAboutActions";
+  setAdminAboutContent, getAdminAboutContent,
+  updateAdminAboutContent,
+  setError
+} from "../../actions/admAboutActions";
 import {withRouter} from "react-router";
 import {connect} from "react-redux";
 
 function mapStateToProps(state) {
   return {
-    loading: state.admAboutReducer.loading,
     admAboutContent: state.admAboutReducer.admAboutContent,
     imgNamesToUpdate: state.admAboutReducer.imgNamesToUpdate,
     error: state.admAboutReducer.error,
+    message: state.admAboutReducer.message,
     contentTouched: state.admAboutReducer.contentTouched,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    setAdminAboutContent: (e, content, files) => dispatch(setAdminAboutContent(e, content, files)),
+    setAdminAboutContent: (e) => dispatch(setAdminAboutContent(e)),
     getAdminAboutContent: () => dispatch(getAdminAboutContent()),
-    // setContentTouched: (e) => dispatch(setContentTouched(e)),
     updateAdminAboutContent: (e) => dispatch(updateAdminAboutContent(e)),
+    setError: (err) => dispatch(setError(err)),
   }
 }
 
-function readFileAsync(file) {
-  return new Promise((res, rej) => {
-    let reader = new FileReader();
-    reader.onload = () => {
-      res(reader.result);
-    }
-    reader.onerror = rej;
-    reader.readAsDataURL(file);
-  });
-}
 
-const AdminAbout = (props) => {
+const AdmAbout = (props) => {
   const textArea = useRef(null);
-  // console.log(props.imageSizes)
 
   useEffect(() => {
     props.getAdminAboutContent();
-    document.getElementById('xxx').focus();
+    document.getElementById('contentarea').focus();
     window.addEventListener('beforeunload', e => {
       e.preventDefault();
       try {
@@ -61,24 +49,27 @@ const AdminAbout = (props) => {
             'Content-Type': 'application/json;charset=utf-8'
           },
           body: JSON.stringify({imagesToDelete: imagesToDelete})
-        }).then(res => res.json())
-          .then((res) => {
-            console.log(res);
-          })
+        })
       } catch (e) {
-        console.log(e);
+        props.setError(e);
       }
     });
+
+    return (() => {
+      props.setError(null);
+    })
+
   }, [textArea, props.contentTouched]);
 
   return (
-    <div className="admin__about" >
+
+    <div className="admin__about">
 
       <div className="admin__about-buttons">
         <input className="admin__about-img"
                onChange={(e) => {
                  e.preventDefault();
-                 props.setAdminAboutContent(e, textArea.current.innerHTML, props.contentTouched)
+                 props.setAdminAboutContent(e);
                }}
                multiple
                type="file" id='imgbutton'
@@ -87,14 +78,19 @@ const AdminAbout = (props) => {
           <i className="far fa-file-image"></i>
         </label>
       </div>
-
-      <div id="xxx" ref={textArea} suppressContentEditableWarning={true} contentEditable={"true"}
+      <div id="contentarea" ref={textArea} suppressContentEditableWarning={true} contentEditable={"true"}
            className="admin__about-content" dangerouslySetInnerHTML={{__html: props.admAboutContent}}></div>
+      <div id="notifier" className="admin__about-notifier">{
+        props.error
+          ? setTimeout(() => {
+            return props.error.toString()
+          }, 3000)
+          : props.message}</div>
       <button onClick={(e) => props.updateAdminAboutContent(e)}>Save</button>
+
     </div>
   )
 }
 
-// export default AdminAbout
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminAbout));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdmAbout));
 

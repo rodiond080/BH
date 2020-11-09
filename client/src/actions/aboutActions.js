@@ -1,9 +1,6 @@
 import {
-  GET_ABOUT_INIT, GET_ABOUT_SUCCESS, GET_ABOUT_ERROR
+  GET_ABOUT_INIT, GET_ABOUT_SUCCESS, GET_ABOUT_ERROR, TOGGLE_BACKDROP_ACTIVE
 } from "../_constants/aboutConstants";
-import {TOGGLE_BACKDROP_ACTIVE} from "../_constants/aboutConstants";
-
-// import axios from 'axios';
 
 export function toggleBackdropActive(backdropActive) {
   return (dispatch) => {
@@ -30,7 +27,7 @@ function getWidth() {
 
 function getHeight(incomingWight, incomingHeight) {
   const newWidth = getWidth(incomingWight);
-  const newHeight = (newWidth*incomingHeight)/incomingWight
+  const newHeight = (newWidth * incomingHeight) / incomingWight
   return newHeight;
 }
 
@@ -57,18 +54,12 @@ export function getAboutContent() {
             const linkTag = document.createElement('a');
             linkTag.classList.add('about__image-link');
             linkTag.style.cursor = 'pointer';
-            // linkTag.innerText='link';
-            // linkTag.href = 'javascript:void(0)';
-            // linkTag.href = '#';
             imageTag.before(linkTag);
             linkTag.appendChild(imageTag);
             // console.log(linkTag)
             linkTag.addEventListener('click', (e) => {
               e.preventDefault();
-              console.log(2);
             }, false);
-            // linkTag.appendChild(imageTag);
-
 
             imageTag.classList.remove('admin__about-image');
             counter % 2 === 0 ? imageTag.style.float = 'left' : imageTag.style.float = 'right';

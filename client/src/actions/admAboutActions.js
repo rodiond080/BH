@@ -1,11 +1,8 @@
 import {
-  ADM_SET_ABOUT_INIT, ADM_SET_ABOUT_SUCCESS, ADM_SET_ABOUT_ERROR,
-  ADM_GET_ABOUT_INIT, ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR,
-  ADM_SET_CONTENT_TOUCHED, ADM_UPDATE_ABOUT
+  ADM_SET_ABOUT_SUCCESS, ADM_SET_ABOUT_ERROR,
+  ADM_GET_ABOUT_SUCCESS, ADM_GET_ABOUT_ERROR, SET_ERROR
 } from "../_constants/admAboutConstants";
 import axios from 'axios';
-import io from 'socket.io-client';
-import ss from 'socket.io-stream';
 
 function readFileAsync(file) {
   return new Promise((res, rej) => {
@@ -18,14 +15,23 @@ function readFileAsync(file) {
   })
 }
 
-export function setAdminAboutContent(e, content, touched) {
-
+export function setError(err) {
   return (dispatch) => {
+    dispatch(success(err))
+  }
 
+  function success(error) {
+    return {
+      type: SET_ERROR,
+      error: error
+    }
+  }
+}
+
+export function setAdminAboutContent(e) {
+  return (dispatch) => {
     try {
-      dispatch(init());
       const files = e.target.files;
-      console.log(files)
       Array.from(files).forEach(async (file) => {
         const blobForImgSketch = await readFileAsync(file);
         const fileName = Date.now().toString().substr(9, 4) + file.name;
@@ -37,10 +43,9 @@ export function setAdminAboutContent(e, content, touched) {
         imgSketch.appendChild(imgLine);
         imgSketch.contentEditable = false;
 
-
         imgSketch.setAttribute('data-nameId', fileName);
         imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
-        document.getElementById('xxx').appendChild(imgSketch);
+        document.getElementById('contentarea').appendChild(imgSketch);
 
         const fd = new FormData();
 
@@ -54,97 +59,32 @@ export function setAdminAboutContent(e, content, touched) {
               const imgSketch2 = document.createElement('img');
               imgSketch2.classList.add('admin__about-image');
               imgSketch2.setAttribute('data-nameId', fileName);
-              document.getElementById('xxx').appendChild(imgSketch2);
+              document.getElementById('contentarea').appendChild(imgSketch2);
               imgSketch2.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
-              // imgSketch2.style.backgroundImage = 'url(\'' + '../public/images/about/' + fileName + '\')';
             }
-
-            // document.getElementById('output').innerHTML = percentCompleted;
           }
+        }).then(res => {
+          dispatch(success());
         })
-          .then(res => {
-            console.log(res);
-            dispatch(success());
-          })
-
-
-        //   axios.post('/api/adm/about/setaboutcontent', fd,
-        //     {
-        //
-        //     }
-        //   ),
-        // ).
-        //   then(res => {
-        //     // console.log(res)
-        //     dispatch(success());
-        //   })
-
 
       });
-
-      // var socket = io.connect('http://localhost:5001');
-      // const files = e.target.files;
-      //
-      // Array.from(files).forEach(async (file) => {
-      //   const blobForImgSketch = await readFileAsync(file);
-      //   const imgSketch = document.createElement('img');
-      //   imgSketch.classList.add('admin__about-image');
-      //   imgSketch.setAttribute('data-nameId', file.name);
-      //   imgSketch.style.backgroundImage = 'url(\'' + blobForImgSketch + '\')';
-      //   document.getElementById('xxx').appendChild(imgSketch);
-      //
-      //
-      //   const stream = ss.createStream();
-      //   ss(socket).emit('img-about-upload', stream, {
-      //     size: file.size, name: file.name
-      //   });
-      //   ss.createStream(file).pipe(stream);
-      //
-      //   var blobStream = ss.createBlobReadStream(file);
-      //   var size = 0;
-      //   blobStream.on('data', function (chunk) {
-      //     size += chunk.length;
-      //     // console.log(Math.floor(size / file.size * 100) + '%');
-      //     if (size === file.size) {
-      //       imgSketch.style.backgroundImage = 'url(\'' + '../public/images/about/' + file.name + '\')';
-      //     }
-      //   });
-      //   blobStream.pipe(stream);
-      // });
-      //
-      //
-      // axios.post('/api/adm/about/setaboutcontent', {
-      //   aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
-      // }).then(res => {
-      //   // console.log(res)
-      //   dispatch(success());
-      // })
-
-
     } catch (e) {
       dispatch(error(e));
-    }
-  }
-
-  function init() {
-    return {
-      type: ADM_SET_ABOUT_INIT,
-      loading: true
     }
   }
 
   function success() {
     return {
       type: ADM_SET_ABOUT_SUCCESS,
-      loading: false
+      message: 'Изображения были успешно загружены',
+      error: null
     }
   }
 
   function error(error) {
     return {
       type: ADM_SET_ABOUT_ERROR,
-      error: error,
-      loading: false
+      error: error
     }
   }
 }
@@ -153,7 +93,6 @@ export function updateAdminAboutContent(e) {
   e.preventDefault();
   return (dispatch) => {
     try {
-      dispatch(init());
       const imagesTagsToUpdate = document.getElementsByClassName('admin__about-image');
       const imagesToUpdate = Array.from(imagesTagsToUpdate).map(imgTag => {
         return imgTag.attributes.getNamedItem('data-nameId').value;
@@ -165,7 +104,7 @@ export function updateAdminAboutContent(e) {
       });
 
       axios.post('/api/adm/about/updateaboutcontent', {
-        aboutContent: JSON.stringify(document.getElementById('xxx').innerHTML),
+        aboutContent: JSON.stringify(document.getElementById('contentarea').innerHTML),
         imagesToUpdate: JSON.stringify(imagesToUpdate),
       }).then(res => {
         dispatch(success());
@@ -177,72 +116,39 @@ export function updateAdminAboutContent(e) {
     }
   }
 
-  function init() {
-    return {
-      type: ADM_SET_ABOUT_INIT,
-      loading: true
-    }
-  }
-
   function success() {
     return {
       type: ADM_SET_ABOUT_SUCCESS,
-      loading: false
+      message: 'Изменения были успешно сохранены',
+      error: null
     }
   }
 
   function error(error) {
     return {
       type: ADM_SET_ABOUT_ERROR,
-      error: error,
-      loading: false
-    }
-  }
-}
-
-export function setContentTouched(e) {
-  return (dispatch) => {
-    dispatch(init())
-    dispatch(success())
-  }
-
-  function init() {
-    return {
-      type: ADM_SET_CONTENT_TOUCHED,
-      contentTouched: true
-    }
-  }
-
-  function success() {
-    return {
-      type: ADM_SET_CONTENT_TOUCHED,
-      contentTouched: true
+      error: error
     }
   }
 }
 
 export function getAdminAboutContent() {
-  return (dispatch) => {
+  return async (dispatch) => {
     try {
-      dispatch(init())
-      fetch('/api/adm/about/getaboutcontent', {
-        method: 'POST'
-      })
-        .then(res => res.json())
-        .then((res) => {
-          dispatch(success(res));
-        })
+      // dispatch(init())
+      const contentProm = await axios.post('/api/adm/about/getaboutcontent');
+      dispatch(success(contentProm.data));
     } catch (e) {
       dispatch(error(e));
     }
   }
 
-  function init() {
-    return {
-      type: ADM_GET_ABOUT_INIT,
-      loading: true
-    }
-  }
+  // function init() {
+  //   return {
+  //     type: ADM_GET_ABOUT_INIT,
+  //     loading: true
+  //   }
+  // }
 
   function success(result) {
     return {
@@ -261,29 +167,3 @@ export function getAdminAboutContent() {
     }
   }
 }
-
-
-
-// export function getAdminAboutContent(content) {
-//   return (dispatch) => {
-//
-//     fetch('/api/adm/about/getaboutcontent', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json;charset=utf-8'
-//       },
-//       body: JSON.stringify({content: content})
-//     })
-//       .then(res => res.json())
-//       .then((res) => {
-//         dispatch(success(res));
-//       })
-//
-//     function success(res) {
-//       return {
-//         type: ADM_GET_ABOUT_SUCCESS,
-//         content: res
-//       }
-//     }
-//   }
-// }

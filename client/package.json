@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development webpack --mode development --watch",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "watch": "cross-env NODE_ENV=development webpack --mode development --watch",
-    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development --open --no-inline",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development  --no-inline",
     "stats": "webpack --json > stats.json && webpack-bundle-analyzer stats.json"
   },
   "proxy": "http://localhost:5000",

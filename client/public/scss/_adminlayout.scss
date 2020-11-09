@@ -3,14 +3,18 @@ body{
 }
 
 .admin {
-  border: 1px solid black;
+  //border: 4px solid black;
+  height: 100%;
 
 
   &__menu {
     width: 250px;
+    z-index: 24!important;
     background-color: $adminDark;
     transition: .3s;
-    height: 99vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
     float: left;
     margin-right: -300px;
     display: flex;
@@ -18,6 +22,9 @@ body{
     &-wrapper {
       //border: 4px solid saddlebrown;
       display: flex;
+      height: 100%;
+      background-color: $adminDark;
+      position: relative;
     }
 
 
@@ -30,7 +37,8 @@ body{
       margin-top: 10px;
       margin-left: 10px;
       padding-top: 2px;
-      left: 350px;
+      left: 243px;
+      top: 0;
       width: 50px;
       height: 45px;
       background-color:$adminBright ;
@@ -38,6 +46,7 @@ body{
       border-radius: 5px;
       z-index: 2;
       display: none;
+      position: absolute;
 
 
       &:hover {
@@ -81,10 +90,15 @@ body{
           color: $whiteColor;
           transition: .3s;
 
+
+
           &:hover {
             padding-left: 35px;
             background-color: #9e9e9e;
           }
+        }
+        a.active{
+          background-color: #9e9e9e;
         }
       }
     }
@@ -94,4 +108,19 @@ body{
 .admin__heading {
   float: right;
   width: 100%;
+}
+
+.admin__notification{
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: wheat;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border: 2px solid seagreen;
+  z-index: 2;
+  background-color: rgba(0,0,0, .5);
 }

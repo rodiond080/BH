@@ -2,8 +2,6 @@ import React from 'react';
 
 export const Crumbs = (props)=>{
 
-  // console.log(props)
-
   return(
       <div className="product__main-heading-bg">
         <div className="border">
@@ -19,6 +17,5 @@ export const Crumbs = (props)=>{
           </div>
         </div>
       </div>
-
   )
 }
